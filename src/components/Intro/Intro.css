@@ -1,0 +1,38 @@
+.intro-container {
+    height: 5rem;
+    background-color: rgb(173, 177, 226);
+    overflow: hidden; 
+    display: flex;
+    align-items: center; 
+}
+
+.intro-text {
+    white-space: nowrap; 
+    display: inline-block;
+    animation: scrollText 40s linear infinite; 
+    font-size: 1.5rem;
+    padding-left: 100%; /* Start the animation from off-screen */
+}
+
+.hero-icon {
+    width: 60px; 
+    height: auto;
+    vertical-align: middle; 
+    margin-left: 10px;
+}
+
+/* Keyframes for the scrolling animation */
+@keyframes scrollText {
+    0% {
+        transform: translateX(100%); /* Start off-screen */
+    }
+    100% {
+        transform: translateX(-100%); 
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .intro-container {
+        height: 4rem;
+    }
+}
