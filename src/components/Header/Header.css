@@ -1,0 +1,150 @@
+
+/* navigation */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #6b96ec;
+    z-index: 10;
+}
+
+nav {
+    max-width: 1440px;
+    margin: 0 auto;
+    height: 100px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-family: "Oswald";
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-between;
+    margin: 0px;
+    padding: 0px;
+}
+
+nav ul li {
+    margin: 0 1rem;
+    list-style: none;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #e8dfdf;
+
+}
+
+.logo {
+    width: 18rem; 
+    height: 6rem; 
+    background-image: url('/assets/images/white.png'); 
+    background-size: contain; 
+    background-repeat: no-repeat; 
+    background-position: center; 
+}
+
+/* Social media icons */
+.social-icon {
+    color: #fff; /* White color */
+    margin: 0 10px; /* Optional spacing */
+    transition: color 0.3s ease;
+    size: 1.7rem;
+  }
+  
+  .social-icon:hover {
+    color: #292626; /* Optional hover effect */
+  }
+  
+
+
+/* burger */
+.burger-menu {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.burger-menu .line {
+    width: 25px;
+    height: 3px;
+    background: #fff;
+    margin: 4px;
+    transition: all 0.3s ease-in;
+}
+
+#menu-toggle {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    nav {
+        justify-content: space-between;
+    }
+
+    nav ul {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #303030;
+        align-items: center;
+        flex-direction: column;
+        gap: 10px;
+        display: none;
+    }
+
+    nav ul li {
+        margin: 15px 0;
+    }
+
+    .burger-menu {
+        display: flex;
+    }
+
+
+    .menu-toggle:checked~ul {
+        display: flex;
+    }
+
+    .menu-toggle:checked+.burger-menu .line:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 5px);
+    }
+
+    .menu-toggle:checked+.burger-menu .line:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-toggle:checked+.burger-menu .line:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -5px);
+    }
+
+  
+}
+
+@media screen and ( max-width: 768px) {
+    .top-social{
+        margin-left: 10rem;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .top-social{
+        margin-left: auto;
+    }
+    .burger-menu {
+        margin-left: 3rem;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .top-social{
+        margin-left: auto;
+    }
+    .burger-menu {
+        margin-left: auto;
+    }
+}
