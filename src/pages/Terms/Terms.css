@@ -1,0 +1,15 @@
+.terms-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1.5rem 1.0rem;
+    font-family: Arial, sans-serif;
+  }
+  h1, h2 {
+    color: #333;
+    padding-top: 1.7rem;
+  }
+  p {
+    color: #555;
+    line-height: 1.7;
+  }
+  

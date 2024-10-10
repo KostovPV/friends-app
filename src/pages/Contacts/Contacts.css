@@ -1,0 +1,25 @@
+.contacts-section {
+    display: flex;
+    padding: 20px;
+    font-size: 24px;
+    color: black;
+    /* Ensure the text color is visible */
+    /* margin-top: 200px; */
+}
+
+.contact-info {
+    margin: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    line-height: 1.4;
+}
+
+.town {
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: #6b96ec;
+}
