@@ -1,73 +1,75 @@
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500&display=swap');
 
 .signup {
   margin-top: 0;
-  background: url("https://th.bing.com/th/id/R.0170b343c978105f4cbdd101e3a33003?rik=Gk35AAp6dswcOA&riu=http%3a%2f%2fwww.macleans.ca%2fwp-content%2fuploads%2f2015%2f07%2fchildren-playing.jpg&ehk=poAqB%2fH4r6sSILJJVRy9v0LB21uMJKaXAorHOIZEwd0%3d&risl=&pid=ImgRaw&r=0");
+  background-color: #dbdbdb;
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
-  width: 100%
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-
 .form {
-position: relative;
-z-index: 1;
-background: #FFFFFF;
-border-radius: 10px;
-max-width: 360px;
-margin: 200px auto 100px;
-padding: 45px;
-text-align: center;
+  position: relative;
+  z-index: 1;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  max-width: 360px;
+  margin: auto;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: 'Baloo 2', cursive;
 }
 
 .form input {
-outline: 0;
-background: #f2f2f2;
-width: 100%;
-border: 0;
-border-radius: 5px;
-/* margin: 0 0 15px; */
-padding: 15px;
-box-sizing: border-box;
-font-size: 14px;
-font-family: 'Comfortaa', cursive;
+  outline: none;
+  background-color: #f2f2f2;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-family: 'Baloo 2', cursive;
 }
 
 .form input:focus {
-background: #dbdbdb;
+  background-color: #dbdbdb;
 }
 
 .form button {
-font-family: 'Comfortaa', cursive;
-text-transform: uppercase;
-outline: 0;
-background: #4b6cb7;
-width: 100%;
-border: 0;
-border-radius: 5px;
-padding: 15px;
-color: #FFFFFF;
-font-size: 14px;
--webkit-transition: all 0.3 ease;
-transition: all 0.3 ease;
-cursor: pointer;
+  font-family: 'Baloo 2', cursive;
+  text-transform: uppercase;
+  background-color: #6b96ec;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .form button:active {
-background: #395591;
+  background-color: #4b6cb7;
 }
 
 .form span {
-font-size: 40px;
-color: #4b6cb7;
-margin-bottom: 25px;
-display: block;
+  font-size: 32px;
+  color: #6b96ec;
+  margin-bottom: 25px;
+  display: block;
 }
 
 .form p.error {
-margin: 0 0 10px 10px;
-text-align: left;
-font-size: 10px;
-color: red;
+  margin: 0 0 10px 10px;
+  text-align: left;
+  font-size: 12px;
+  color: red;
 }

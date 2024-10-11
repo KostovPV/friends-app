@@ -21,6 +21,7 @@ function Header() {
           <li><a href="/">Начало</a></li> {/* Home */}
           <li><a href="/contacts">Контакти</a></li> {/* Contacts */}
           <li><a href="/terms">Условия</a></li> {/* Terms */}
+          <li><a href="/book">Резервирай</a></li> {/* BookParty */}
           {/* Conditionally render links based on user state */}
           {!user ? (
             <>
@@ -34,7 +35,7 @@ function Header() {
           )}
         </ul>
         <div className="top-social">
-          <a href="https://www.facebook.com/profile.php?id=61554304582027" aria-label="Facebook Profile">
+          <a href="https://www.facebook.com/profile.php?id=61566720999276" aria-label="Facebook Profile">
             <FaFacebook className="social-icon" />
           </a>
           <a href="https://www.instagram.com" aria-label="Instagram Profile">

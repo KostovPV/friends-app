@@ -20,12 +20,12 @@ export default function Login() {
     <div className="loginForm">
       <div className="login-form">
         <form className="form" onSubmit={handleSubmit}>
-          <span>Login</span>
+          <span>Вход за потребители</span>
 
           <input
             type="email"
             name="email"
-            placeholder="Enter email id / username"
+            placeholder="Въведи email"
             className="form-control inp_text"
             id="email"
             required
@@ -38,15 +38,15 @@ export default function Login() {
             required
             type="password"
             name="password"
-            placeholder="Enter password"
+            placeholder="Въведи парола"
             className="form-control"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
           />
 
 
-          {!isPending && <button className="btn">Log in</button>}
-          {isPending && <button className="btn" disabled>loading</button>}
+          {!isPending && <button className="btn">Влез</button>}
+          {isPending && <button className="btn" disabled>Зарежда се</button>}
           {error && <div className="error">{error}</div>}
         </form>
       </div>

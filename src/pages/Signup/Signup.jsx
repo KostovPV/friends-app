@@ -16,12 +16,12 @@ export default function Signup() {
     <div className="signup">
       <div className="form">
         <form onSubmit={handleSubmit}>
-          <span>Sign up</span>
+          <span>Регистрирай се</span>
 
           <input
             type="email"
             name="email"
-            placeholder="Enter email"
+            placeholder="Въведи email"
             className="form-control inp_text"
             id="email"
             required
@@ -33,13 +33,13 @@ export default function Signup() {
             required
             type="password"
             name="password"
-            placeholder="Enter password"
+            placeholder="Въведи парола"
             className="form-control"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
           />
 
-          <button>Sign up</button>
+          <button>Регистрирай се</button>
 
           {/* Display error if any */}
           {error && <p className="error">{error}</p>}

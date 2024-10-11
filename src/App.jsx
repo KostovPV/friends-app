@@ -12,6 +12,8 @@ import Login from './pages/Login/Login';
 import Signup from './pages/Signup/Signup';
 import Logout from './components/Logout/Logout';
 import Upload from './pages/Upload/Upload';
+import BookParty from './pages/BookParty/BookParty';
+
 
 function App() {
   const { user, authIsReady } = useAuthContext(); // Get user and authIsReady from context
@@ -25,6 +27,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/contacts" element={<Contacts />} />
             <Route path="/terms" element={<Terms />} />
+            <Route path="/book" element={<BookParty />} />
             <Route
               path='/upload'
               element={!user ?  <Navigate to="/" />: <Upload />}
