@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import emailjs from "emailjs-com";
+import "./BookParty.css";
 
 const BookParty = () => {
   const [formData, setFormData] = useState({
@@ -68,7 +69,7 @@ const BookParty = () => {
 
   return (
     <form onSubmit={handleSubmit} className="booking-form">
-      <h2>Book a Party</h2>
+      <h2>Запази парти</h2>
 
       {/* Location */}
       <label>
@@ -173,11 +174,11 @@ const BookParty = () => {
           name="additionalInfo"
           value={formData.additionalInfo}
           onChange={handleChange}
-          placeholder="Any additional requests or questions?"
+          placeholder="Въведете допълнителна информация, която меже да ни е от полза?"
         />
       </label>
 
-      <button type="submit">Submit Booking</button>
+      <button type="submit">Изпрати запитване</button>
     </form>
   );
 };
