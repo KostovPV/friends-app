@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500&display=swap');
 
 .signup {
+  
+  display: flex;
   margin-top: 0;
   background-color: #dbdbdb;
   background-repeat: no-repeat;
@@ -12,10 +14,8 @@
   justify-content: center;
 }
 
-.form {
-  position: relative;
-  z-index: 1;
-  background-color: #FFFFFF;
+form {
+  background-color: #f2f2f2;
   border-radius: 10px;
   max-width: 360px;
   margin: auto;
@@ -25,9 +25,9 @@
   font-family: 'Baloo 2', cursive;
 }
 
-.form input {
+form input {
   outline: none;
-  background-color: #f2f2f2;
+  /* background-color: #f2f2f2; */
   width: 100%;
   border: none;
   border-radius: 5px;
@@ -38,11 +38,11 @@
   font-family: 'Baloo 2', cursive;
 }
 
-.form input:focus {
+form input:focus {
   background-color: #dbdbdb;
 }
 
-.form button {
+form button {
   font-family: 'Baloo 2', cursive;
   text-transform: uppercase;
   background-color: #6b96ec;
@@ -56,18 +56,18 @@
   transition: background-color 0.3s ease;
 }
 
-.form button:active {
+form button:active {
   background-color: #4b6cb7;
 }
 
-.form span {
+form span {
   font-size: 32px;
   color: #6b96ec;
   margin-bottom: 25px;
   display: block;
 }
 
-.form p.error {
+form p.error {
   margin: 0 0 10px 10px;
   text-align: left;
   font-size: 12px;

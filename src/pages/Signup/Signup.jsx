@@ -14,7 +14,7 @@ export default function Signup() {
 
   return (
     <div className="signup">
-      <div className="form">
+      {/* <div className="form"> */}
         <form onSubmit={handleSubmit}>
           <span>Регистрирай се</span>
 
@@ -45,6 +45,6 @@ export default function Signup() {
           {error && <p className="error">{error}</p>}
         </form>
       </div>
-    </div>
+    // </div>
   );
 }
