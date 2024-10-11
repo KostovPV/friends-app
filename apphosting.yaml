@@ -1,0 +1,9 @@
+
+runtime: nodejs18 # or your preferred runtime version
+env_variables:
+  VITE_API_KEY: 'AIzaSyCmbMbotHwKomvy9xxcILH5Nn_MzMgYrbk'
+  VITE_AUTH_DOMAIN: 'friends-a8c3d.firebaseapp.com'
+  VITE_PROJECT_ID: 'friends-a8c3d'
+  VITE_STORAGE_BUCKET: 'friends-a8c3d.appspot.com'
+  VITE_MESSAGING_SENDER_ID: '18364098239'
+  VITE_APP_ID: '1:18364098239:web:e54dc02bf56831741d480a'
