@@ -7,19 +7,22 @@
     overflow: hidden;
     border-radius: 10px;
     padding-top: 2rem;
-  
+    padding-bottom: 2.5rem;
 }
 
 
 .slider-image {
     width: 100%;
+    /* min-height: 250px; */
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     background-size: cover;
+    background-repeat: no-repeat;
     background-position: center;
     transition: background-image 0.5s ease;
+    border-radius: 0.5rem;
 }
 
 /* Left and right arrows */
@@ -72,7 +75,7 @@
 @media screen and (max-width: 768px) {
     .slider {
         max-height: 400px;
-        margin-bottom: 30px;
+        padding-bottom: 30px;
 
     }
 }

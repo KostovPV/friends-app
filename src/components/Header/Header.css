@@ -1,4 +1,3 @@
-
 /* navigation */
 header {
     position: fixed;
@@ -35,16 +34,15 @@ nav ul li {
 nav ul li a {
     text-decoration: none;
     color: #e8dfdf;
-
 }
 
 .logo {
-    width: 18rem; 
-    height: 6rem; 
-    background-image: url('/assets/images/white.png'); 
-    background-size: contain; 
-    background-repeat: no-repeat; 
-    background-position: center; 
+    width: 18rem;
+    height: 6rem;
+    background-image: url('/assets/images/white.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 /* Social media icons */
@@ -52,14 +50,12 @@ nav ul li a {
     color: #fff; /* White color */
     margin: 0 10px; /* Optional spacing */
     transition: color 0.3s ease;
-    size: 1.7rem;
-  }
-  
-  .social-icon:hover {
-    color: #292626; /* Optional hover effect */
-  }
-  
+    font-size: 1.7rem;
+}
 
+.social-icon:hover {
+    color: #292626; /* Optional hover effect */
+}
 
 /* burger */
 .burger-menu {
@@ -95,6 +91,10 @@ nav ul li a {
         flex-direction: column;
         gap: 10px;
         display: none;
+        padding: 10px 0;
+        z-index: 999; /* Ensure menu appears above other elements */
+        max-height: 90vh; /* Limit height of menu */
+        overflow-y: auto; /* Add scrolling for overflowing content */
     }
 
     nav ul li {
@@ -105,34 +105,30 @@ nav ul li a {
         display: flex;
     }
 
-
-    .menu-toggle:checked~ul {
+    .menu-toggle:checked ~ .nav-links {
         display: flex;
     }
 
-    .menu-toggle:checked+.burger-menu .line:nth-child(1) {
+    .menu-toggle:checked + .burger-menu .line:nth-child(1) {
         transform: rotate(-45deg) translate(-5px, 5px);
     }
 
-    .menu-toggle:checked+.burger-menu .line:nth-child(2) {
+    .menu-toggle:checked + .burger-menu .line:nth-child(2) {
         opacity: 0;
     }
 
-    .menu-toggle:checked+.burger-menu .line:nth-child(3) {
+    .menu-toggle:checked + .burger-menu .line:nth-child(3) {
         transform: rotate(45deg) translate(-5px, -5px);
     }
 
-  
-}
-
-@media screen and ( max-width: 768px) {
-    .top-social{
-        margin-left: 10rem;
+    .top-social {
+        margin-top: 20px; /* Ensure it doesn't overlap with the menu */
+        z-index: 1;
     }
 }
 
 @media screen and (max-width: 650px) {
-    .top-social{
+    .top-social {
         margin-left: auto;
     }
     .burger-menu {
@@ -141,7 +137,7 @@ nav ul li a {
 }
 
 @media screen and (max-width: 450px) {
-    .top-social{
+    .top-social {
         margin-left: auto;
     }
     .burger-menu {

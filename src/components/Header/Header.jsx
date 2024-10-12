@@ -1,8 +1,6 @@
-
 import './Header.css';
 import { FaFacebook, FaInstagram } from 'react-icons/fa';
 import { useAuthContext } from '../../hooks/useAuthContext'; // Import the Auth context
-import './Header.css'; // Ensure you import your CSS file
 
 function Header() {
   const { user } = useAuthContext(); // Get the user from context
@@ -17,21 +15,21 @@ function Header() {
           <span className="line"></span>
           <span className="line"></span>
         </label>
-        <ul>
+        <ul className="nav-links">
           <li><a href="/">Начало</a></li> {/* Home */}
           <li><a href="/contacts">Контакти</a></li> {/* Contacts */}
           <li><a href="/terms">Условия</a></li> {/* Terms */}
-          <li><a href="/book">Резервирай</a></li> {/* BookParty */}
-          {/* Conditionally render links based on user state */}
+          <li><a href="/book">Резервирай</a></li> {/* Book */}
           {!user ? (
             <>
-              <li><a href="/login">Вход</a></li> 
-              <li><a href="/register">Регистрация</a></li> 
+              <li><a href="/login">Вход</a></li> {/* Login */}
+              <li><a href="/register">Регистрация</a></li> {/* Register */}
             </>
-          ) : (<ul>
-            <li><a href="/logout">Изход</a></li> 
-            <li><a href="/upload">Качи снимка</a></li> 
-            </ul>
+          ) : (
+            <>
+              <li><a href="/logout">Изход</a></li> {/* Logout */}
+              <li><a href="/upload">Качи снимка</a></li> {/* Upload */}
+            </>
           )}
         </ul>
         <div className="top-social">

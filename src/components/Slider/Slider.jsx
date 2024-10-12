@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import './Slider.css'; 
+import './Slider.css';
 
-import kid1 from "../../assets/images/kids1.jpg";
-import kid2 from "../../assets/images/kids2.jpg";
-import kid3 from "../../assets/images/kids3.jpg";
-import kid4 from "../../assets/images/kids10.jpg";
+import kid1 from "../../assets/images/valq1.jpg";
+import kid2 from "../../assets/images/kids10.jpg";
+import kid3 from "../../assets/images/kids12.jpg";
+import kid4 from "../../assets/images/valq6.jpg";
 import kid5 from "../../assets/images/kids11.jpg";
-import kid6 from "../../assets/images/kids12.jpg";
+import kid6 from "../../assets/images/valq10.jpg";
 import kid7 from "../../assets/images/kids13.jpg";
 
 const images = [kid1, kid2, kid3, kid4, kid5, kid6, kid7];
@@ -35,7 +35,7 @@ export default function Slider() {
         &#10094;
       </div>
       <div className="slider-image" style={{ backgroundImage: `url(${images[currentIndex]})` }}>
-     
+
       </div>
 
       {/* Right arrow */}
