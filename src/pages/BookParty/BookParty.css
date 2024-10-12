@@ -1,45 +1,38 @@
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500&display=swap');
 
 .booking-form {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
   background-color: #dbdbdb;
   background-repeat: no-repeat;
   background-size: cover;
-  /* height: 100vh; */
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;  /* This centers the form vertically and horizontally */
+  justify-content: center;
   font-family: 'Baloo 2', cursive;
+  padding: 20px;
 }
 
-form {
-  background: #ffffff;
-  border-radius: 10px;
-  max-width: 400px;
-  width: 100%;
-  padding:10px 40px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  margin: 0 auto;  /* Center the form horizontally */
-}
 
-h2 {
+.booking-form h2 {
   font-size: 32px;
   color: #4b6cb7;
-  /* margin-bottom: 30px; */
   text-align: center;
 }
 
-label {
+.booking-form label {
   font-size: 16px;
   color: #333;
   margin-bottom: 10px;
   display: block;
   font-weight: bold;
+  width: 80%;
 }
 
-input, 
-textarea {
+.booking-form input, 
+.booking-form textarea {
   width: 100%;
   padding: 15px;
   margin-bottom: 20px;
@@ -50,20 +43,21 @@ textarea {
   font-family: 'Baloo 2', cursive;
 }
 
-input:focus, 
-textarea:focus {
+.booking-form input:focus, 
+.booking-form textarea:focus {
   background-color: #dbdbdb;
   outline: none;
 }
 
-textarea {
+.booking-form textarea {
+  width: 90%;
   resize: none;
   height: 100px;
 }
 
-button {
-  width: 100%;
-  padding: 20px;
+.booking-form button {
+  width: 80%;
+  padding: 15px;
   background-color: #6b96ec;
   color: #ffffff;
   border: none;
@@ -76,16 +70,27 @@ button {
   margin-bottom: 20px;
 }
 
-button:hover {
-  background-color: #6b96ec;
+.booking-form button:hover {
+  background-color: #4880ef;
 }
 
-button:active {
-  background-color: #6b96ec;
+.booking-form button:active {
+  background-color: #4b6cb7;
 }
 
-@media (max-width: 500px) {
+/* Media query for screens below 468px */
+@media (max-width: 468px) {
+  .booking-form {
+    padding: 15px;
+  }
+
   form {
-    padding: 30px;
+    max-width: 100%;
+    padding: 15px;
+  }
+
+  .booking-form button {
+    padding: 15px;
+    font-size: 14px;
   }
 }

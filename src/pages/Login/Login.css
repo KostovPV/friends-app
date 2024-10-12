@@ -1,74 +1,73 @@
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500&display=swap');
 
-.loginForm {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #dbdbdb;
-    height: 100vh;
-    width: 100%;
-}
-
-.login-form {
-    width: 360px;
-    padding: 2rem;
-    margin: 0 auto;
-    font-family: 'Baloo 2', cursive;
+.login {
+  display: flex;
+  margin-top: 0;
+  background-color: #dbdbdb;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
 }
 
 .form {
-    background-color: #6b96ec;
-    border-radius: 10px;
-    padding: 45px;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  max-width: 360px;
+  margin: auto;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: 'Baloo 2', cursive;
 }
 
 .form input {
-    outline: none;
-    background: #f2f2f2;
-    width: 100%;
-    border: none;
-    border-radius: 5px;
-    padding: 15px;
-    margin-bottom: 15px;
-    font-size: 14px;
-    font-family: 'Baloo 2', cursive;
-    box-sizing: border-box;
+  outline: none;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  font-family: 'Baloo 2', cursive;
+  background-color:#dbdbdb;
+  box-sizing: border-box;
 }
 
 .form input:focus {
-    background: #dbdbdb;
+  background-color: #dbdbdb;
 }
 
 .form button {
-    font-family: 'Baloo 2', cursive;
-    text-transform: uppercase;
-    background-color: #6b96ec;;
-    width: 100%;
-    border: none;
-    border-radius: 5px;
-    padding: 15px;
-    color: #FFFFFF;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  font-family: 'Baloo 2', cursive;
+  text-transform: uppercase;
+  background-color: #6b96ec;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  padding: 15px;
+  color: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .form button:active {
-    background-color: #6b96ec;;
+  background-color: #4b6cb7;
 }
 
 .form span {
-    font-size: 32px;
-    color: #6b96ec;;
-    margin-bottom: 20px;
-    display: block;
+  font-size: 32px;
+  color: #6b96ec;
+  margin-bottom: 25px;
+  display: block;
 }
 
 .error {
-    color: red;
-    font-size: 12px;
-    margin-top: 10px;
-    text-align: left;
+  color: red;
+  font-size: 12px;
+  margin-top: 10px;
+  text-align: left;
 }

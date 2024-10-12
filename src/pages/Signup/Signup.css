@@ -27,7 +27,7 @@ form {
 
 form input {
   outline: none;
-  /* background-color: #f2f2f2; */
+  background-color:#dbdbdb;
   width: 100%;
   border: none;
   border-radius: 5px;
@@ -50,6 +50,8 @@ form button {
   border: none;
   border-radius: 5px;
   padding: 15px;
+  margin-bottom: 35px;
+
   color: #FFFFFF;
   font-size: 14px;
   cursor: pointer;
