@@ -13,6 +13,7 @@ import Signup from './pages/Signup/Signup';
 import Logout from './components/Logout/Logout';
 import Upload from './pages/Upload/Upload';
 import BookParty from './pages/BookParty/BookParty';
+import Profile from './components/Profile/Profile';
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
               element={!user ? <Login /> : <Navigate to="/" />} // Redirect if user is logged in
             />
             <Route path="/logout" element={<Logout />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         )}
         <Footer />

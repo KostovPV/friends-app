@@ -29,6 +29,7 @@ function Header() {
             <>
               <li><a href="/logout">Изход</a></li> {/* Logout */}
               <li><a href="/upload">Качи снимка</a></li> {/* Upload */}
+              <li><a href="/profile">Профил</a></li> {/* Upload */}
             </>
           )}
         </ul>

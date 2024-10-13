@@ -1,15 +1,30 @@
-import { useState } from 'react';
-import { useLogin } from '../../hooks/useLogin';
+import { signInWithEmailAndPassword } from "firebase/auth";
+import React, { useState } from "react";
+import { auth } from "../../firebaseConfig";
+import { toast } from "react-toastify";
+import SignInwithGoogle from "../../components/SignInWIthGoogle/SignInWIthGoogle";
 import './Login.css';
 
-export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const { login, error, isPending } = useLogin();
+function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    login(email, password);
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      console.log("User logged in Successfully");
+      window.location.href = "/profile";
+      toast.success("User logged in Successfully", {
+        position: "top-center",
+      });
+    } catch (error) {
+      console.log(error.message);
+
+      toast.error(error.message, {
+        position: "bottom-center",
+      });
+    }
   };
 
   return (
@@ -38,10 +53,20 @@ export default function Login() {
           value={password}
         />
 
-        {!isPending && <button>Влез</button>}
-        {isPending && <button disabled>Зарежда се</button>}
-        {error && <p className="error">{error}</p>}
+        <div className="d-grid">
+          <button type="submit" className="btn btn-primary">
+            Влез
+          </button>
+        </div>
+
+        <SignInwithGoogle /> {/* Google Login Button */}
+
+        <p className="forgot-password text-right">
+          Нов потребител <a href="/register">Регистрирай се тук</a>
+        </p>
       </form>
     </div>
   );
 }
+
+export default Login;
