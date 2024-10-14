@@ -67,7 +67,7 @@ const BookParty = () => {
       });
   };
 
-  return (
+  return (<div className="form-container">
     <form onSubmit={handleSubmit} className="booking-form">
       <h2>Запази парти</h2>
 
@@ -180,6 +180,7 @@ const BookParty = () => {
 
       <button type="submit">Изпрати запитване</button>
     </form>
+  </div>
   );
 };
 

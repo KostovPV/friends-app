@@ -13,8 +13,11 @@ import Signup from './pages/Signup/Signup';
 import Logout from './components/Logout/Logout';
 import Upload from './pages/Upload/Upload';
 import BookParty from './pages/BookParty/BookParty';
-import Profile from './components/Profile/Profile';
+import Profile from './pages/Profile/Profile';
+// import Profile from './components/Profile/Profile';
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const { user, authIsReady } = useAuthContext(); // Get user and authIsReady from context
@@ -22,6 +25,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className='app-container'>
+      <ToastContainer /> 
         <Header />
         {authIsReady && ( // Check if auth is ready before rendering routes
           <Routes>

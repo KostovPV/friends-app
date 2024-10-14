@@ -13,11 +13,17 @@ function Profile() {
   const [email, setEmail] = useState("");
   const [file, setFile] = useState(null);
   const [imageUploading, setImageUploading] = useState(false);
+  const [isGoogleUser, setIsGoogleUser] = useState(false); // New state for Google user
 
   // Fetch user data from Firestore
   const fetchUserData = async () => {
     auth.onAuthStateChanged(async (user) => {
       if (user) {
+        console.log('user->', user);
+        // Check if the user logged in via Google
+        const providerId = user.providerData[0]?.providerId;
+        setIsGoogleUser(providerId === 'google.com'); // Set flag if Google login
+        
         const docRef = doc(db, "Users", user.uid);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
@@ -26,6 +32,7 @@ function Profile() {
           setFirstName(data.firstName || "");
           setLastName(data.lastName || "");
           setEmail(data.email || "");
+          console.log('data', data);
         }
       } else {
         console.log("User is not logged in");
@@ -42,7 +49,7 @@ function Profile() {
     e.preventDefault();
     const user = auth.currentUser;
 
-    if (!user) return;
+    if (!user || isGoogleUser) return; // Prevent updates for Google users
 
     try {
       let imageUrl = userDetails.photo; // Keep the old photo URL if no new image is uploaded
@@ -125,9 +132,13 @@ function Profile() {
                 <p>Име: {userDetails.firstName}</p>
                 <p>Фамилия: {userDetails.lastName}</p>
               </div>
-              <button className="btn btn-secondary" onClick={() => setEditMode(true)}>
-                Редактирай профила
-              </button>
+
+              {/* Only show edit button if user did not log in with Google */}
+              {!isGoogleUser && (
+                <button className="btn btn-secondary" onClick={() => setEditMode(true)}>
+                  Редактирай профила
+                </button>
+              )}
             </>
           ) : (
             <>
@@ -165,7 +176,7 @@ function Profile() {
                 </div>
 
                 <div className="form-group">
-                  <label>Качи нова профилна снимкаe</label>
+                  <label>Качи нова профилна снимка</label>
                   <input
                     type="file"
                     className="form-control"
@@ -191,7 +202,7 @@ function Profile() {
             </>
           )}
           <button className="btn btn-primary mt-3" onClick={handleLogout}>
-           Изход
+            Изход
           </button>
         </>
       ) : (

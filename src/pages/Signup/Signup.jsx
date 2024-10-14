@@ -71,7 +71,24 @@ function Signup() {
       }
     } catch (error) {
       console.log(error.message);
-      toast.error(error.message, {
+      let errorMessage = "An error occurred during registration.";
+
+      // Map Firebase error codes to friendly messages
+      switch (error.code) {
+        case "auth/email-already-in-use":
+          errorMessage = "This email is already registered. Please use a different one.";
+          break;
+        case "auth/weak-password":
+          errorMessage = "The password is too weak. Please use a stronger password.";
+          break;
+        case "auth/invalid-email":
+          errorMessage = "The email address is not valid.";
+          break;
+        default:
+          errorMessage = error.message;
+      }
+
+      toast.error(errorMessage, {
         position: "bottom-center",
       });
     }
@@ -138,4 +155,3 @@ function Signup() {
 }
 
 export default Signup;
-

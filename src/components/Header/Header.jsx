@@ -1,9 +1,16 @@
 import './Header.css';
 import { FaFacebook, FaInstagram } from 'react-icons/fa';
 import { useAuthContext } from '../../hooks/useAuthContext'; // Import the Auth context
+import UserProfile from '../UserProfile/UserProfile'; // Import the new UserProfile component
 
 function Header() {
-  const { user } = useAuthContext(); // Get the user from context
+  const { user, authIsReady } = useAuthContext(); // Get the user and auth state from context
+  console.log('user', user);
+
+  // Handle loading state before authentication is ready
+  if (!authIsReady) {
+    return <header>Loading...</header>;
+  }
 
   return (
     <header>
@@ -29,10 +36,11 @@ function Header() {
             <>
               <li><a href="/logout">Изход</a></li> {/* Logout */}
               <li><a href="/upload">Качи снимка</a></li> {/* Upload */}
-              <li><a href="/profile">Профил</a></li> {/* Upload */}
             </>
           )}
         </ul>
+
+        {/* Social icons */}
         <div className="top-social">
           <a href="https://www.facebook.com/profile.php?id=61566720999276" aria-label="Facebook Profile">
             <FaFacebook className="social-icon" />
@@ -41,6 +49,9 @@ function Header() {
             <FaInstagram className="social-icon" />
           </a>
         </div>
+
+        {/* Display user profile component if logged in */}
+        {user && <UserProfile user={user} />} {/* Display the UserProfile component */}
       </nav>
     </header>
   );

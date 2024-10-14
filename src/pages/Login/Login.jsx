@@ -20,8 +20,27 @@ function Login() {
       });
     } catch (error) {
       console.log(error.message);
+      let errorMessage = "An error occurred during login.";
 
-      toast.error(error.message, {
+      // Map Firebase error codes to friendly messages
+      switch (error.code) {
+        case "auth/user-not-found":
+          errorMessage = "No user found with this email.";
+          break;
+        case "auth/wrong-password":
+          errorMessage = "Incorrect password. Please try again.";
+          break;
+        case "auth/invalid-email":
+          errorMessage = "The email address is not valid.";
+          break;
+        case "auth/too-many-requests":
+          errorMessage = "Too many login attempts. Please try again later.";
+          break;
+        default:
+          errorMessage = error.message;
+      }
+
+      toast.error(errorMessage, {
         position: "bottom-center",
       });
     }

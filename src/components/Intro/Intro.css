@@ -1,7 +1,11 @@
 .intro-container {
     
     height: 5rem;
-    background-color: rgb(173, 177, 226);
+    /* background-color: rgb(224, 226, 243); */
+    /* background-color: rgb(224, 226, 243); */
+    background: #6b96ec;
+    /* filter: blur(0.3px); */
+    /* background-color: transparent; */
     overflow: hidden; 
     display: flex;
     align-items: center; 

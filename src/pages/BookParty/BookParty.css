@@ -1,8 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500&display=swap');
 
+.form-container{
+  display: flex;
+}
 .booking-form {
-  margin-top: 3rem;
-  margin-bottom: 3rem;
+  /* margin-top: 3rem;
+  margin-bottom: 3rem; */
   background-color: #dbdbdb;
   background-repeat: no-repeat;
   background-size: cover;
