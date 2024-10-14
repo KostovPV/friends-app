@@ -4,6 +4,7 @@ import { auth, db, storage } from "../../firebaseConfig";
 import { setDoc, doc } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import SignInwithGoogle from "../../components/SignInWIthGoogle/SignInWIthGoogle";
 import './Signup.css';
 
@@ -14,6 +15,7 @@ function Signup() {
   const [lname, setLname] = useState("");
   const [file, setFile] = useState(null); // State to store selected file
   const [imageUploading, setImageUploading] = useState(false); // State to manage image upload progress
+  const navigate = useNavigate(); // Initialize navigate
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -68,27 +70,12 @@ function Signup() {
         toast.success("Успешно регистриран потребител!!", {
           position: "top-center",
         });
+
+        navigate("/"); // Redirect to homepage after successful signup
       }
     } catch (error) {
       console.log(error.message);
-      let errorMessage = "An error occurred during registration.";
-
-      // Map Firebase error codes to friendly messages
-      switch (error.code) {
-        case "auth/email-already-in-use":
-          errorMessage = "This email is already registered. Please use a different one.";
-          break;
-        case "auth/weak-password":
-          errorMessage = "The password is too weak. Please use a stronger password.";
-          break;
-        case "auth/invalid-email":
-          errorMessage = "The email address is not valid.";
-          break;
-        default:
-          errorMessage = error.message;
-      }
-
-      toast.error(errorMessage, {
+      toast.error(error.message, {
         position: "bottom-center",
       });
     }
