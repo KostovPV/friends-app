@@ -27,7 +27,7 @@ function SignInwithGoogle() {
           });
 
           // Use navigate instead of window.location.href
-          navigate("/profile");
+          navigate("/");
         }
       })
       .catch((error) => {
