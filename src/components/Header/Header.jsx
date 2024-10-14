@@ -2,20 +2,11 @@ import './Header.css';
 import { FaFacebook, FaInstagram } from 'react-icons/fa';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import UserProfile from '../UserProfile/UserProfile';
-import { useEffect, useState } from 'react';
 
 function Header() {
   const { user, authIsReady } = useAuthContext();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  console.log('User:', user, 'Auth Is Ready:', authIsReady);
 
-  // Set logged-in state when user changes
-  useEffect(() => {
-    if (authIsReady) {
-      setIsLoggedIn(!!user); // Update login state when auth is ready
-    }
-  }, [authIsReady, user]);
-
-  // Handle loading state before authentication is ready
   if (!authIsReady) {
     return <header>Loading...</header>;
   }
@@ -35,7 +26,7 @@ function Header() {
           <li><a href="/contacts">Контакти</a></li>
           <li><a href="/terms">Условия</a></li>
           <li><a href="/book">Резервирай</a></li>
-          {!isLoggedIn ? (
+          {!user ? (
             <>
               <li><a href="/login">Вход</a></li>
               <li><a href="/register">Регистрация</a></li>
@@ -57,7 +48,7 @@ function Header() {
           </a>
         </div>
 
-        {isLoggedIn && <UserProfile user={user} />}
+        {user && <UserProfile user={user} />} {/* Pass the user data */}
       </nav>
     </header>
   );

@@ -51,8 +51,13 @@ function Profile() {
 
     if (!user || isGoogleUser) return; // Prevent updates for Google users
 
+    if (!firstName.trim()) {
+      toast.error("First name is required!");
+      return;
+    }
+
     try {
-      let imageUrl = userDetails.photo; // Keep the old photo URL if no new image is uploaded
+      let imageUrl = userDetails?.photo || ""; // Keep the old photo URL if no new image is uploaded
 
       // If a new file is selected, upload it to Firebase Storage
       if (file) {
@@ -72,6 +77,7 @@ function Profile() {
             (error) => {
               console.error("Error during image upload:", error);
               toast.error("Image upload failed");
+              setImageUploading(false); // Ensure state is updated even if upload fails
               reject(error);
             },
             async () => {
@@ -118,15 +124,15 @@ function Profile() {
         <>
           <div className="profile-image-container">
             <img
-              src={userDetails.photo}
-              alt="Profile"
+              src={userDetails.photo || "default-avatar.png"} // Provide a default image
+              alt={`${userDetails.firstName}'s Profile`} // Add better alt text for accessibility
               className="profile-image"
             />
           </div>
 
           {!editMode ? (
             <>
-              <h3>Здравей  {userDetails.firstName} 🙏🙏</h3>
+              <h3>Здравей {userDetails.firstName} 🙏🙏</h3>
               <div className="profile-details">
                 <p>Email: {userDetails.email}</p>
                 <p>Име: {userDetails.firstName}</p>

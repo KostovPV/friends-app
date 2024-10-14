@@ -22,36 +22,35 @@ export const authReducer = (state, action) => {
 export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, {
     user: null,
-    authIsReady: false,
+    authIsReady: false
   });
 
   useEffect(() => {
-    // Set up the Firebase listener for authentication state changes
     const unsub = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        // Fetch additional user data from Firestore
         const docRef = doc(db, 'Users', user.uid);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
           const userData = docSnap.data();
-          // Merge Firebase Auth user data with Firestore data
-          const mergedUser = { ...user, ...userData };
+          // Ensure photoURL is consistent
+          const mergedUser = { 
+            ...user, 
+            firstName: userData.firstName, 
+            lastName: userData.lastName, 
+            photoURL: userData.photo || user.photoURL // Prefer Firestore photo if available
+          };
           dispatch({ type: 'AUTH_IS_READY', payload: mergedUser });
         } else {
-          // If no additional user data is found, use only Firebase Auth data
+          // Fallback to auth data if Firestore data is unavailable
           dispatch({ type: 'AUTH_IS_READY', payload: user });
         }
       } else {
         dispatch({ type: 'AUTH_IS_READY', payload: null });
       }
+      unsub(); 
     });
-
-    // Cleanup the listener when the component unmounts
-    return () => unsub();
   }, []);
-
-  console.log('AuthContext state:', state);
 
   return (
     <AuthContext.Provider value={{ ...state, dispatch }}>

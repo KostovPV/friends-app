@@ -1,12 +1,11 @@
 // src/components/UserProfile/UserProfile.js
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Updated hook import
-import './UserProfile.css'; // Import the CSS for styling
+import { useNavigate } from 'react-router-dom';
+import './UserProfile.css';
 
 function UserProfile({ user }) {
-  const navigate = useNavigate(); // Use useNavigate instead of useHistory
-
-  // Handle profile image click
+  const navigate = useNavigate();
+  console.log('user', user)
   const goToProfile = () => {
     navigate('/profile'); // Redirect to the profile page
   };
@@ -14,15 +13,15 @@ function UserProfile({ user }) {
   return (
     <div className="user-profile" onClick={goToProfile}>
       <img
-        src={user.photo || 'default-avatar.png'} // Show user photo or default avatar
+        src={user?.photo || 'default-avatar.png'} // Consistent use of photoURL
         alt="User Avatar"
         className="user-avatar"
         width={40}
         height={40}
       />
-      {/* <span className="user-name">
-        Влязъл като {user.firstName} {user.lastName}
-      </span> */}
+      <span className="user-name">
+        Влязъл като {user?.firstName || 'Потребител'} {user?.lastName || ''}
+      </span>
     </div>
   );
 }
