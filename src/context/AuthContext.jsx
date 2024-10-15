@@ -26,6 +26,7 @@ export const AuthContextProvider = ({ children }) => {
   });
 
   useEffect(() => {
+    // Subscribe to auth state change
     const unsub = onAuthStateChanged(auth, async (user) => {
       if (user) {
         const docRef = doc(db, 'Users', user.uid);
@@ -33,23 +34,24 @@ export const AuthContextProvider = ({ children }) => {
 
         if (docSnap.exists()) {
           const userData = docSnap.data();
-          // Ensure photoURL is consistent
-          const mergedUser = { 
-            ...user, 
-            firstName: userData.firstName, 
-            lastName: userData.lastName, 
+          // Merge Firebase auth and Firestore user data
+          const mergedUser = {
+            ...user,
+            firstName: userData.firstName,
+            lastName: userData.lastName,
             photoURL: userData.photo || user.photoURL // Prefer Firestore photo if available
           };
           dispatch({ type: 'AUTH_IS_READY', payload: mergedUser });
         } else {
-          // Fallback to auth data if Firestore data is unavailable
           dispatch({ type: 'AUTH_IS_READY', payload: user });
         }
       } else {
         dispatch({ type: 'AUTH_IS_READY', payload: null });
       }
-      unsub(); 
     });
+
+    // Cleanup listener on unmount
+    return () => unsub();  // Keep the unsubscribe only on unmount
   }, []);
 
   return (

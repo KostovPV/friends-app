@@ -1,4 +1,5 @@
 import './Header.css';
+import { useEffect } from "react";
 import { FaFacebook, FaInstagram } from 'react-icons/fa';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import UserProfile from '../UserProfile/UserProfile';
@@ -7,8 +8,15 @@ function Header() {
   const { user, authIsReady } = useAuthContext();
   console.log('User:', user, 'Auth Is Ready:', authIsReady);
 
+  useEffect(() => {
+    if (authIsReady) {
+      console.log('User state has changed:', user);
+    }
+  }, [user, authIsReady]);  // Re-render the Header component when the user changes
+
+  // Early return if auth is not ready
   if (!authIsReady) {
-    return <header>Loading...</header>;
+    return <header>Loading...</header>; // Show loading until auth is ready - I will make a spinner later(maybe)
   }
 
   return (
@@ -26,6 +34,8 @@ function Header() {
           <li><a href="/contacts">Контакти</a></li>
           <li><a href="/terms">Условия</a></li>
           <li><a href="/book">Резервирай</a></li>
+
+          {/* Render based on user state */}
           {!user ? (
             <>
               <li><a href="/login">Вход</a></li>

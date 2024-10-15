@@ -2,24 +2,31 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import { auth } from "../../firebaseConfig";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom"; 
 import SignInwithGoogle from "../../components/SignInWIthGoogle/SignInWIthGoogle";
+import { useAuthContext } from "../../hooks/useAuthContext"; 
 import './Login.css';
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate(); // Initialize navigate
+  const navigate = useNavigate(); 
+  const { dispatch } = useAuthContext(); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user; // Get user from the result
+
+      // Dispatch the LOGIN action after successful login
+      dispatch({ type: "LOGIN", payload: user });
+
       console.log("User logged in Successfully");
       toast.success("User logged in Successfully", {
         position: "top-center",
       });
-      navigate("/"); // Redirect to homepage after successful login
+      navigate("/");
     } catch (error) {
       console.log(error.message);
       let errorMessage = "An error occurred during login.";
