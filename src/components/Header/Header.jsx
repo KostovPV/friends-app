@@ -34,6 +34,7 @@ function Header() {
           <li><a href="/contacts">Контакти</a></li>
           <li><a href="/terms">Условия</a></li>
           <li><a href="/book">Резервирай</a></li>
+          <li><a href="/galery">Галерия</a></li>
 
           {/* Render based on user state */}
           {!user ? (
