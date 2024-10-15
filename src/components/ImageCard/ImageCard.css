@@ -113,7 +113,7 @@
 }
 
 .arrow:hover {
-    background-color: rgba(255, 255, 255, 1);
+    background-color: rgb(80, 74, 74);
 }
 
 .left {
@@ -143,6 +143,7 @@
 
     .arrow {
         position: static;
+        color: #161d34;
         margin-top: 10px;
         padding: 0.5rem 1rem;
     }
