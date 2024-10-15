@@ -34,7 +34,7 @@ function Header() {
           <li><a href="/contacts">Контакти</a></li>
           <li><a href="/terms">Условия</a></li>
           <li><a href="/book">Резервирай</a></li>
-          <li><a href="/galery">Галерия</a></li>
+          <li><a href="/gallery">Галерия</a></li>
 
           {/* Render based on user state */}
           {!user ? (
@@ -45,7 +45,10 @@ function Header() {
           ) : (
             <>
               <li><a href="/logout">Изход</a></li>
-              <li><a href="/upload">Качи снимка</a></li>
+              {/* Only show the upload link for users with the 'admin' role */}
+              {user.role === 'admin' && (
+                <li><a href="/upload">Качи снимка</a></li>
+              )}
             </>
           )}
         </ul>

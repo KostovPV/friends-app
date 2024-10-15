@@ -1,4 +1,3 @@
-// src/App.jsx
 import React from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
@@ -18,6 +17,7 @@ import Profile from './pages/Profile/Profile';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Galery from './pages/Gallery/Gallery';
 
 function App() {
   const { user, authIsReady } = useAuthContext(); // Get user and authIsReady from context
@@ -30,13 +30,19 @@ function App() {
         {authIsReady && ( // Check if auth is ready before rendering routes
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/gallery" element={<Galery />} />
             <Route path="/contacts" element={<Contacts />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/book" element={<BookParty />} />
             <Route
               path='/upload'
-              element={!user ?  <Navigate to="/" />: <Upload />}
-
+              element={!user ? (
+                <Navigate to="/" /> // Redirect to home if user is not logged in
+              ) : user.role !== 'admin' ? (
+                <Navigate to="/" /> // Redirect if user is not admin
+              ) : (
+                <Upload />
+              )}
             />
             <Route
               path="/register"
