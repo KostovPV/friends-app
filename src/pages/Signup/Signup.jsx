@@ -5,7 +5,7 @@ import { setDoc, doc } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import SignInwithGoogle from "../../components/SignInWIthGoogle/SignInWIthGoogle";
-import { useAuthContext } from "../../hooks/useAuthContext"; // Import useAuthContext for dispatch
+import { useAuthContext } from "../../hooks/useAuthContext"; 
 import './Signup.css';
 
 function Signup() {
@@ -13,9 +13,9 @@ function Signup() {
   const [password, setPassword] = useState("");
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
-  const [file, setFile] = useState(null); // State to store selected file
-  const [imageUploading, setImageUploading] = useState(false); // State to manage image upload progress
-  const { dispatch } = useAuthContext(); // Get the dispatch function from AuthContext
+  const [file, setFile] = useState(null); 
+  const [imageUploading, setImageUploading] = useState(false); 
+  const { dispatch } = useAuthContext(); 
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -30,7 +30,7 @@ function Signup() {
 
       // If a profile image is selected, upload it to Firebase Storage
       if (file) {
-        setImageUploading(true); // Set image uploading state
+        setImageUploading(true); 
 
         const storageRef = ref(storage, `profileImages/${user.uid}`);
         const uploadTask = uploadBytesResumable(storageRef, file);
@@ -41,11 +41,11 @@ function Signup() {
             "state_changed",
             (snapshot) => {
               const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-              console.log("Upload is " + progress + "% done");
+              console.log("Каването е " + progress + "% завършено");
             },
             (error) => {
               console.error("Error during image upload:", error);
-              toast.error("Image upload failed");
+              toast.error("Неуспешно качване на снимка!");
               reject(error);
             },
             async () => {
@@ -65,8 +65,8 @@ function Signup() {
           email: user.email,
           firstName: fname,
           lastName: lname,
-          photo: imageUrl || "", // Save image URL if available, otherwise save an empty string
-          role: "user", // Default role for regular users
+          photo: imageUrl || "", 
+          role: "user", 
         });
 
         // Dispatch the LOGIN action after successful signup
@@ -82,24 +82,24 @@ function Signup() {
         });
 
         console.log("User successfully registered!");
-        toast.success("User successfully registered!", {
+        toast.success("Успешна регистрация!", {
           position: "top-center",
         });
       }
     } catch (error) {
       console.log("Error during registration:", error.message);
-      let errorMessage = "An error occurred during registration.";
+      let errorMessage = "Възникна грешка по време на регистрацията.";
 
       // Map Firebase error codes to friendly messages
       switch (error.code) {
         case "auth/email-already-in-use":
-          errorMessage = "This email is already registered. Please use a different one.";
+          errorMessage = "Email-а е вече регистриран. Моля въведете друг.";
           break;
         case "auth/weak-password":
-          errorMessage = "The password is too weak. Please use a stronger password.";
+          errorMessage = "Твърде лесна парола. Моля въведете по-сигурна парола";
           break;
         case "auth/invalid-email":
-          errorMessage = "The email address is not valid.";
+          errorMessage = "Неавлиден email";
           break;
         default:
           errorMessage = error.message;
@@ -154,22 +154,22 @@ function Signup() {
 
         {/* Profile Image Upload */}
         <div className="upload-container">
-          <label>Upload Profile Image</label>
+          <label>Kачи профилна снимка</label>
           <input
             type="file"
             className="form-control"
-            onChange={(e) => setFile(e.target.files[0])} // Update file state when the user selects a file
+            onChange={(e) => setFile(e.target.files[0])} 
           />
         </div>
 
         {/* Submit Button */}
         <button type="submit" className="btn btn-primary" disabled={imageUploading}>
-          {imageUploading ? "Uploading..." : "Sign Up"}
+          {imageUploading ? "Качване..." : "Регистрирай се"}
         </button>
 
         {/* Login Link */}
         <p className="forgot-password text-right">
-          Already registered? <a href="/login">Login</a>
+          Вече имаш регистрация? <a href="/login">Влез</a>
         </p>
 
         {/* Google Sign Up Button */}
