@@ -1,18 +1,30 @@
-/* src/components/UserProfile/UserProfile.css */
 .user-profile {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-  }
-  
-  .user-avatar {
-    border-radius: 50%;
-    margin-right: 8px;
-  }
-  
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.user-avatar {
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.user-name {
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column; /* Stack first and last names vertically */
+  line-height: 1.2; /* Adjust spacing between the two names */
+}
+
+.user-name span {
+  display: block; /* Ensures each name gets its own row */
+}
+
+@media screen and (max-width: 390px) {
   .user-name {
-    font-size: 14px;
-    color: #333;
-    font-weight: 500;
+    display: none;
   }
   
+}

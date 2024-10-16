@@ -12,11 +12,17 @@ nav {
     margin: 0 auto;
     height: 100px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     text-transform: uppercase;
     font-weight: 400;
     font-family: "Oswald";
+}
+
+.left,
+.right {
+    display: flex;
+    align-items: center;
 }
 
 nav ul {
@@ -43,21 +49,26 @@ nav ul li a {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    margin-right: 2rem;
 }
 
 /* Social media icons */
+.top-social{
+    display: flex;
+    flex-direction: row;
+}
 .social-icon {
-    color: #fff; /* White color */
-    margin: 0 10px; /* Optional spacing */
+    color: #fff;
+    margin: 0 10px;
     transition: color 0.3s ease;
     font-size: 1.7rem;
 }
 
 .social-icon:hover {
-    color: #292626; /* Optional hover effect */
+    color: #292626;
 }
 
-/* burger */
+/* Burger menu */
 .burger-menu {
     display: none;
     flex-direction: column;
@@ -75,19 +86,9 @@ nav ul li a {
 #menu-toggle {
     display: none;
 }
-/* @media screen and (max-width: 1350px) {
-    .top-social {
-        margin-left: auto;
-    }
-    .burger-menu {
-        margin-left: 3rem;
-    }
-} */
-@media screen and (max-width: 768px) {
-    nav {
-        justify-content: space-between;
-    }
 
+/* RESPONSIVE STYLES */
+@media screen and (max-width: 1350px) {
     nav ul {
         position: absolute;
         top: 100%;
@@ -99,9 +100,9 @@ nav ul li a {
         gap: 10px;
         display: none;
         padding: 10px 0;
-        z-index: 999; /* Ensure menu appears above other elements */
-        max-height: 90vh; /* Limit height of menu */
-        overflow-y: auto; /* Add scrolling for overflowing content */
+        z-index: 999;
+        max-height: 90vh;
+        overflow-y: auto;
     }
 
     nav ul li {
@@ -112,42 +113,116 @@ nav ul li a {
         display: flex;
     }
 
-    .menu-toggle:checked ~ .nav-links {
+    .menu-toggle:checked~.nav-links {
         display: flex;
     }
 
-    .menu-toggle:checked + .burger-menu .line:nth-child(1) {
+    .menu-toggle:checked+.burger-menu .line:nth-child(1) {
         transform: rotate(-45deg) translate(-5px, 5px);
     }
 
-    .menu-toggle:checked + .burger-menu .line:nth-child(2) {
+    .menu-toggle:checked+.burger-menu .line:nth-child(2) {
         opacity: 0;
     }
 
-    .menu-toggle:checked + .burger-menu .line:nth-child(3) {
+    .menu-toggle:checked+.burger-menu .line:nth-child(3) {
         transform: rotate(45deg) translate(-5px, -5px);
     }
 
     .top-social {
-        margin-top: 20px; /* Ensure it doesn't overlap with the menu */
         z-index: 1;
+        margin-right: 2rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .user-link {
+        margin-right: 1rem;
+    }
+
+    .links {
+        margin-left: 0.3rem;
+    }
+
+    .social-icon {
+        margin-left: 2rem;
     }
 }
 
-@media screen and (max-width: 650px) {
+/* Further size reductions */
+@media screen and (max-width: 850px) {
+    .top-social {
+        margin-right: 0.3rem;
+    }
+
+    .links {
+        margin-left: -0.5rem;
+    }
+}
+
+/* Adjustments for smaller devices */
+@media screen and (max-width: 700px) {
+    .logo {
+        width: 14rem;
+        height: 5rem;
+    }
+
     .top-social {
         margin-left: auto;
     }
+
     .burger-menu {
-        margin-left: 3rem;
+        margin-left: 0.1rem;
+    }
+
+    /* Reduce spacing between social icons */
+    .social-icon {
+        margin-left: 0.5rem;  /* Reduced spacing */
+        margin-right: 0.5rem; /* Reduced spacing */
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .logo {
+        width: 13rem;
+        height: 5rem;
+        margin-left: 0;
+        margin-right: 0.4rem;
+    }
+
+    .top-social {
+        margin-left: auto;
+    }
+
+    .burger-menu {
+        margin-left: 0;
+    }
+
+    /* Reduce spacing between social icons */
+    .social-icon {
+        margin-left: 0.1rem;  /* Reduced spacing */
+        margin-right: 0.2rem; /* Reduced spacing */
+    }
+}
+
+@media screen and (max-width: 500px) {
+  
+    .top-social {
+        flex-direction: column;
+    }
+
+    .logo {
+        width: 10rem;
     }
 }
 
 @media screen and (max-width: 450px) {
+    .logo {
+        width: 9rem;
+    }
     .top-social {
         margin-left: auto;
     }
-    .burger-menu {
-        margin-left: auto;
-    }
+   
 }
+
