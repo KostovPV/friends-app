@@ -75,7 +75,7 @@
 }
 
 .modal-content {
-    background: rgb(167, 161, 161);
+    background: rgb(123, 123, 123);
     padding: 2rem;
     border-radius: var(--radius);
     max-width: 90%;
@@ -88,7 +88,7 @@
 
 .card__large-image {
     width: 100%;
-    max-height: 50vh;
+    max-height: 60vh;
     margin-bottom: 1rem;
     border-radius: var(--radius);
     object-fit: cover;
@@ -96,6 +96,7 @@
 
 .modal-image-container {
     position: relative;
+    top: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;

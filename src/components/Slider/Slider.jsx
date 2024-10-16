@@ -29,29 +29,27 @@ export default function Slider() {
   };
 
   return (
-    <div className="slider">
-      {/* Left arrow */}
-      <div className="arrow left-arrow" onClick={goToPrevSlide}>
-        &#10094;
-      </div>
-      <div className="slider-image" style={{ backgroundImage: `url(${images[currentIndex]})` }}>
-
-      </div>
-
-      {/* Right arrow */}
-      <div className="arrow right-arrow" onClick={goToNextSlide}>
-        &#10095;
-      </div>
-
-      {/* Dots */}
-      <div className="dots-container">
-        {images.map((_, index) => (
-          <span
-            key={index}
-            className={`dot ${currentIndex === index ? 'active' : ''}`}
-            onClick={() => goToSlide(index)}
-          ></span>
-        ))}
+    <div className="slider-component">
+      <div className="slider">
+        <div className="arrow left-arrow" onClick={goToPrevSlide}>
+          &#10094;
+        </div>
+        <div
+          className="slider-image"
+          style={{ backgroundImage: `url(${images[currentIndex]})` }}
+        ></div>
+        <div className="arrow right-arrow" onClick={goToNextSlide}>
+          &#10095;
+        </div>
+        <div className="dots-container">
+          {images.map((_, index) => (
+            <span
+              key={index}
+              className={`dot ${currentIndex === index ? 'active' : ''}`}
+              onClick={() => goToSlide(index)}
+            ></span>
+          ))}
+        </div>
       </div>
     </div>
   );

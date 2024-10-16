@@ -3,11 +3,13 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../firebaseConfig'; // Adjust the path if necessary
 import ImageCard from '../../components/ImageCard/ImageCard'; // Import the ImageCard component
 import './Gallery.css'; // Add styling for the gallery if necessary
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 export default function Gallery() {
     const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [activeImageId, setActiveImageId] = useState(null); // State for the active image
+    const [activeImageId, setActiveImageId] = useState(null); 
+    const { user  } = useAuthContext(); // Get user from context
 
     useEffect(() => {
         const fetchImages = async () => {
@@ -33,20 +35,18 @@ export default function Gallery() {
         setActiveImageId(activeImageId === imageId ? null : imageId); // Toggle active image
     };
 
-    // Navigate to the previous image
     const goToPreviousImage = () => {
         if (activeImageId) {
             const currentIndex = images.findIndex(image => image.id === activeImageId);
-            const previousIndex = (currentIndex - 1 + images.length) % images.length; // Loop to the end if at start
+            const previousIndex = (currentIndex - 1 + images.length) % images.length;
             setActiveImageId(images[previousIndex].id);
         }
     };
 
-    // Navigate to the next image
     const goToNextImage = () => {
         if (activeImageId) {
             const currentIndex = images.findIndex(image => image.id === activeImageId);
-            const nextIndex = (currentIndex + 1) % images.length; // Loop to the start if at end
+            const nextIndex = (currentIndex + 1) % images.length;
             setActiveImageId(images[nextIndex].id);
         }
     };
@@ -55,7 +55,6 @@ export default function Gallery() {
         return <div>Loading gallery...</div>;
     }
 
-    // Find the currently active image based on the activeImageId state
     const activeImage = images.find(image => image.id === activeImageId);
 
     return (
@@ -67,13 +66,12 @@ export default function Gallery() {
                     <ImageCard
                         key={image.id}
                         image={image}
-                        isSelected={activeImageId === image.id} // Pass the active state
-                        onClick={() => handleImageClick(image.id)} // Handle clicks
+                        isSelected={activeImageId === image.id}
+                        onClick={() => handleImageClick(image.id)}
                     />
                 ))
             )}
 
-            {/* Modal overlay for details */}
             {activeImage && (
                 <div className="modal" onClick={() => setActiveImageId(null)}>
                     <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -82,11 +80,20 @@ export default function Gallery() {
                             <img src={activeImage.url} alt={activeImage.fileName} className="card__large-image" />
                             <button className="arrow right" onClick={goToNextImage}>&gt;</button>
                         </div>
-                        <p><strong>Отбелязани:</strong> {Array.isArray(activeImage.taggedUsers) ? activeImage.taggedUsers.join(', ') : 'Няма отбелязани'}</p>
-                        <p><strong>Коментар:</strong> {activeImage.comment || 'Без добавени кометари'}</p>
-                        <p><strong>Харесвания:</strong> {Array.isArray(activeImage.likes) ? activeImage.likes.length : 0} харесвания</p>
-                        <p><strong>Създадена на:</strong> {activeImage.createdAt?.seconds ? new Date(activeImage.createdAt.seconds * 1000).toLocaleString() : 'Unknown'}</p>
-                        <button onClick={() => setActiveImageId(null)}>Close</button>
+
+                        {/* Show the following details only if the user is logged in */}
+                        {user ? (
+                            <>
+                                <p><strong>Отбелязани:</strong> {Array.isArray(activeImage.taggedUsers) ? activeImage.taggedUsers.join(', ') : 'Няма отбелязани'}</p>
+                                <p><strong>Коментар:</strong> {activeImage.comment || 'Без добавени кометари'}</p>
+                                <p><strong>Харесвания:</strong> {Array.isArray(activeImage.likes) ? activeImage.likes.length : 0} харесвания</p>
+                                <p><strong>Създадена на:</strong> {activeImage.createdAt?.seconds ? new Date(activeImage.createdAt.seconds * 1000).toLocaleString() : 'Unknown'}</p>
+                            </>
+                        ) : (
+                            <p>Трябва да сте регистриран за да видите детайли за снимката.</p>
+                        )}
+
+                        <button onClick={() => setActiveImageId(null)}>Затвори</button>
                     </div>
                 </div>
             )}

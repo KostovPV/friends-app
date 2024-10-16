@@ -15,11 +15,11 @@ function UserProfile({ user }) {
         src={user?.photo || user?.photoURL || 'default-avatar.png'} 
         alt="User Avatar"
         className="user-avatar"
-        width={40}
-        height={40}
+        width={50}
+        height={50}
       />
       <span className="user-name">
-        Влязъл като {user?.firstName || 'Потребител'} {user?.lastName || ''}
+        {user?.firstName || 'Потребител'} {user?.lastName || ''}
       </span>
     </div>
   );

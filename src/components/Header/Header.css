@@ -75,7 +75,14 @@ nav ul li a {
 #menu-toggle {
     display: none;
 }
-
+/* @media screen and (max-width: 1350px) {
+    .top-social {
+        margin-left: auto;
+    }
+    .burger-menu {
+        margin-left: 3rem;
+    }
+} */
 @media screen and (max-width: 768px) {
     nav {
         justify-content: space-between;
