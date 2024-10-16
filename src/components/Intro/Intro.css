@@ -12,6 +12,7 @@
 }
 
 .intro-text {
+    color: #e8dfdf;
     white-space: nowrap; 
     display: inline-block;
     animation: scrollText 40s linear infinite; 

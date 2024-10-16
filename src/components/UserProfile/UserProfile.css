@@ -11,7 +11,7 @@
 
 .user-name {
   font-size: 14px;
-  color: #333;
+  color: #e8dfdf;
   font-weight: 500;
   display: flex;
   flex-direction: column; /* Stack first and last names vertically */
@@ -26,5 +26,5 @@
   .user-name {
     display: none;
   }
-  
+
 }
