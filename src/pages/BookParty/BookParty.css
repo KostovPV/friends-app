@@ -1,23 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500&display=swap');
 
-.form-container{
+.form-container {
   display: flex;
+  justify-content: center; 
+  align-items: center; 
+  min-height: 100vh; 
+  background-color: #dbdbdb; 
 }
+
 .booking-form {
-  /* margin-top: 3rem;
-  margin-bottom: 3rem; */
-  background-color: #dbdbdb;
-  background-repeat: no-repeat;
-  background-size: cover;
-  width: 100%;
+  background-color: #fff;
+  width: 100%; 
+  max-width: 100%; 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-family: 'Baloo 2', cursive;
-  padding: 20px;
+  padding: 20px; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+  border-radius: 10px; 
 }
-
 
 .booking-form h2 {
   font-size: 32px;
@@ -53,7 +56,6 @@
 }
 
 .booking-form textarea {
-  width: 90%;
   resize: none;
   height: 100px;
 }
@@ -79,6 +81,14 @@
 
 .booking-form button:active {
   background-color: #4b6cb7;
+}
+
+/* Media query for screens above 800px */
+@media (min-width: 800px) {
+  .booking-form {
+    max-width: 50%; /* Limit the width to 50% on larger screens */
+    margin: 0 auto; /* Center the form horizontally */
+  }
 }
 
 /* Media query for screens below 468px */
