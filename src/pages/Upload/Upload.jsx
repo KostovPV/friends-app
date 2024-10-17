@@ -14,8 +14,8 @@ export default function Upload() {
   const [manualUsernameInput, setManualUsernameInput] = useState(""); // Input field for manual username
   const [comment, setComment] = useState(""); // User's comment
 
+  // Fetch users from Firestore when the component mounts
   useEffect(() => {
-    // Fetch users from Firestore when the component mounts
     const fetchUsers = async () => {
       try {
         const usersSnapshot = await getDocs(collection(db, 'Users')); // Fetch 'Users' collection
@@ -29,7 +29,6 @@ export default function Upload() {
         setError("Failed to fetch users.");
       }
     };
-
     fetchUsers();
   }, []);
 
@@ -60,38 +59,39 @@ export default function Upload() {
   };
 
   const uploadImage = async () => {
-    if (imageFile) {
-      setLoading(true); // Set loading state
-      const storageRef = ref(storage, `images/${imageFile.name}`);
-      try {
-        // Upload image to Firebase storage
-        await uploadBytes(storageRef, imageFile);
-        const downloadUrl = await getDownloadURL(storageRef);
-        setImageUrl(downloadUrl);
-
-        // Combine selected users from dropdown and manually entered usernames
-        const allTaggedUsers = [...selectedUsers, ...manualUsernames];
-
-        // Store the image URL, tagged users, and comment in Firestore
-        await addDoc(collection(db, "images"), {
-          url: downloadUrl,
-          fileName: imageFile.name,
-          taggedUsers: allTaggedUsers, // Save both dropdown and manually entered users
-          comment: comment,
-          createdAt: new Date(),
-          likes: [],
-          comments: [], // Initialize comments array for future use
-        });
-
-        console.log("File available at:", downloadUrl);
-      } catch (error) {
-        console.error("Error uploading file:", error);
-        setError("Error uploading file: " + error.message); // Set error state
-      } finally {
-        setLoading(false); // Reset loading state
-      }
-    } else {
+    if (!imageFile) {
       setError("No file selected");
+      return;
+    }
+
+    setLoading(true); // Set loading state
+    const storageRef = ref(storage, `images/${imageFile.name}`);
+    try {
+      // Upload image to Firebase storage
+      await uploadBytes(storageRef, imageFile);
+      const downloadUrl = await getDownloadURL(storageRef);
+      setImageUrl(downloadUrl);
+
+      // Combine selected users from dropdown and manually entered usernames
+      const allTaggedUsers = [...selectedUsers, ...manualUsernames];
+
+      // Store the image URL, tagged users, and comment in Firestore
+      await addDoc(collection(db, "images"), {
+        url: downloadUrl,
+        fileName: imageFile.name,
+        taggedUsers: allTaggedUsers, // Save both dropdown and manually entered users
+        comment: comment,
+        createdAt: new Date(),
+        likes: [], // Initialize likes as an empty array
+        comments: [], // Initialize comments array for future use
+      });
+
+      console.log("File available at:", downloadUrl);
+    } catch (error) {
+      console.error("Error uploading file:", error);
+      setError("Error uploading file: " + error.message); // Set error state
+    } finally {
+      setLoading(false); // Reset loading state
     }
   };
 
