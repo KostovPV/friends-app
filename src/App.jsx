@@ -18,6 +18,8 @@ import Profile from './pages/Profile/Profile';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Galery from './pages/Gallery/Gallery';
+import EditImage from './pages/EditImage/EditImage';
+
 
 function App() {
   const { user, authIsReady } = useAuthContext(); // Get user and authIsReady from context
@@ -42,6 +44,16 @@ function App() {
                 <Navigate to="/" /> // Redirect if user is not admin
               ) : (
                 <Upload />
+              )}
+            />
+             <Route
+              path='/edit/:id'
+              element={!user ? (
+                <Navigate to="/" /> // Redirect to home if user is not logged in
+              ) : user.role !== 'admin' ? (
+                <Navigate to="/" /> // Redirect if user is not admin
+              ) : (
+                <EditImage />
               )}
             />
             <Route
