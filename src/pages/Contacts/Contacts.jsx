@@ -103,7 +103,7 @@ const Contacts = () => {
         <div>   <strong>жк. Изгрев</strong>,  Блок 3</div>
 
         <div>
-          <strong>Телефон:</strong> +359-888-800-000
+          <strong>Телефон:</strong> 0894 928 950
         </div>
         <div>
           <strong>email:</strong> partycenterfriends@gmail.com

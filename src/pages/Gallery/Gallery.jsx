@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs, updateDoc, doc } from 'firebase/firestore'; // Add updateDoc and doc
+import { collection, getDocs, updateDoc, doc } from 'firebase/firestore';
 import { db } from '../../firebaseConfig';
 import ImageCard from '../../components/ImageCard/ImageCard';
 import './Gallery.css';
@@ -8,8 +8,8 @@ import { useAuthContext } from '../../hooks/useAuthContext';
 export default function Gallery() {
     const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [activeImageId, setActiveImageId] = useState(null); 
-    const { user } = useAuthContext(); // Get user from context
+    const [activeImageId, setActiveImageId] = useState(null);
+    const { user } = useAuthContext();
 
     useEffect(() => {
         const fetchImages = async () => {
@@ -32,7 +32,7 @@ export default function Gallery() {
     }, []);
 
     const handleImageClick = (imageId) => {
-        setActiveImageId(activeImageId === imageId ? null : imageId); // Toggle active image
+        setActiveImageId(activeImageId === imageId ? null : imageId);
     };
 
     const handleLike = async (image) => {
@@ -86,23 +86,6 @@ export default function Gallery() {
 
     const activeImage = images.find(image => image.id === activeImageId);
 
-    
-    const renderStars = (likes) => {
-        const totalLikes = likes?.length || 0;
-        const maxStars = 5;
-        const filledStars = Math.min(totalLikes, maxStars); // Cap the number of filled stars at 5
-
-        return (
-            <div className="stars-container">
-                {[...Array(maxStars)].map((_, index) => (
-                    <span key={index} className={index < filledStars ? 'star filled' : 'star'}>
-                        ★
-                    </span>
-                ))}
-            </div>
-        );
-    };
-
     return (
         <div className="gallery-container">
             {images.length === 0 ? (
@@ -113,8 +96,9 @@ export default function Gallery() {
                         key={image.id}
                         image={image}
                         isSelected={activeImageId === image.id}
-                        onClick={() => handleImageClick(image.id)}
-                        onLike={() => handleLike(image)} // Pass the handleLike function to ImageCard
+                        user={user}
+                        onImageClick={handleImageClick}
+                        onLike={handleLike} 
                     />
                 ))
             )}
@@ -127,24 +111,10 @@ export default function Gallery() {
                             <img src={activeImage.url} alt={activeImage.fileName} className="card__large-image" />
                             <button className="arrow right" onClick={goToNextImage}>&gt;</button>
                         </div>
-
-                        {/* Show the following details only if the user is logged in */}
-                        {user ? (
-                            <>
-                                <p><strong>Отбелязани:</strong> {Array.isArray(activeImage.taggedUsers) ? activeImage.taggedUsers.join(', ') : 'Няма отбелязани'}</p>
-                                <p><strong>Коментар:</strong> {activeImage.comment || 'Без добавени кометари'}</p>
-                                <p><strong>Харесвания:</strong> {Array.isArray(activeImage.likes) ? activeImage.likes.length : 0} харесвания</p>
-                                <div>
-                                    <button onClick={() => handleLike(activeImage)}>
-                                        {activeImage.likes?.includes(user.uid) ? 'Unlike' : 'Like'}
-                                    </button>
-                                    {renderStars(activeImage.likes)}
-                                </div>
-                                <p><strong>Създадена на:</strong> {activeImage.createdAt?.seconds ? new Date(activeImage.createdAt.seconds * 1000).toLocaleString() : 'Unknown'}</p>
-                            </>
-                        ) : (
-                            <p>Трябва да сте регистриран за да видите детайли за снимката.</p>
-                        )}
+                        <p><strong>Отбелязани:</strong> {Array.isArray(activeImage.taggedUsers) ? activeImage.taggedUsers.join(', ') : 'Няма отбелязани'}</p>
+                        <p><strong>Коментар:</strong> {activeImage.comment || 'Без добавени кометари'}</p>
+                        <p><strong>Харесвания:</strong> {Array.isArray(activeImage.likes) ? activeImage.likes.length : 0} харесвания</p>
+                        <p><strong>Създадена на:</strong> {activeImage.createdAt?.seconds ? new Date(activeImage.createdAt.seconds * 1000).toLocaleString() : 'Unknown'}</p>
 
                         <button onClick={() => setActiveImageId(null)}>Затвори</button>
                     </div>
