@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import emailjs from "emailjs-com";
+import { useNavigate } from "react-router-dom"; 
+import { toast } from "react-toastify";  // Import toast from react-toastify
+import 'react-toastify/dist/ReactToastify.css';  // Import react-toastify styles
 import "./BookParty.css";
 
 const BookParty = () => {
@@ -15,6 +18,8 @@ const BookParty = () => {
     phone: ""
   });
 
+  const navigate = useNavigate(); 
+
   // Handle form field changes
   const handleChange = (e) => {
     setFormData({
@@ -29,7 +34,9 @@ const BookParty = () => {
 
     // Validate inputs before submission
     if (!formData.ocation || !formData.childrenCount || !formData.theme || !formData.date || !formData.time || !formData.email || !formData.phone) {
-      alert("Please fill in all required fields.");
+      toast.error("Моля попълнете всички задължителни полета!", {
+        position: "bottom-center"
+      });
       return;
     }
 
@@ -41,7 +48,7 @@ const BookParty = () => {
   const sendEmail = (formData) => {
     const emailParams = {
       to_name: "Website Owner",
-      from_name: formData.contactName,  // Contact name in "From"
+      from_name: formData.contactName,
       reply_to: formData.email,
       ocation: formData.ocation,
       childrenCount: formData.childrenCount,
@@ -51,7 +58,7 @@ const BookParty = () => {
       contactName: formData.contactName,
       email: formData.email,
       phone: formData.phone,
-      additionalInfo: formData.additionalInfo || "None provided",
+      additionalInfo: formData.additionalInfo || "Няма предоставена",
     };
 
     emailjs.send(
@@ -61,129 +68,133 @@ const BookParty = () => {
       import.meta.env.VITE_EMAILJS_PUBLIC_KEY
     )
       .then((response) => {
-        alert("Booking request sent successfully!");
+        toast.success("Заяката ви беше изпратена успешно, ще се свържем с вас най-скоро!", {
+          position: "top-center",
+        });
+        navigate('/'); 
       }, (error) => {
-        alert("Failed to send booking request. Please try again.");
+        toast.error("Зявката ви не беше изпратена. Опитайте итново!", {
+          position: "bottom-center"
+        });
       });
   };
 
-  return (<div className="form-container">
-    <form onSubmit={handleSubmit} className="booking-form">
-      <h2>Запази парти</h2>
+  return (
+    <div className="form-container">
+      <form onSubmit={handleSubmit} className="booking-form">
+        <h2>Запази парти</h2>
 
-      {/* Location */}
-      <label>
-        Повод:
-        <input
-          type="text"
-          name="ocation"
-          value={formData.ocation}
-          onChange={handleChange}
-          required
-        />
-      </label>
+        {/* Location */}
+        <label>
+          Повод:
+          <input
+            type="text"
+            name="ocation"
+            value={formData.ocation}
+            onChange={handleChange}
+            required
+          />
+        </label>
 
-      {/* Number of children */}
-      <label>
-        Брой деца:
-        <input
-          type="number"
-          name="childrenCount"
-          value={formData.childrenCount}
-          onChange={handleChange}
-          required
-        />
-      </label>
+        {/* Number of children */}
+        <label>
+          Брой деца:
+          <input
+            type="number"
+            name="childrenCount"
+            value={formData.childrenCount}
+            onChange={handleChange}
+            required
+          />
+        </label>
 
-      {/* Theme */}
-      <label>
-        Тема на парти:
-        <input
-          type="text"
-          name="theme"
-          value={formData.theme}
-          onChange={handleChange}
-          required
-        />
-      </label>
+        {/* Theme */}
+        <label>
+          Тема на парти:
+          <input
+            type="text"
+            name="theme"
+            value={formData.theme}
+            onChange={handleChange}
+            required
+          />
+        </label>
 
-      {/* Date */}
-      <label>
-        Дата:
-        <input
-          type="date"
-          name="date"
-          value={formData.date}
-          onChange={handleChange}
-          required
-        />
-      </label>
+        {/* Date */}
+        <label>
+          Дата:
+          <input
+            type="date"
+            name="date"
+            value={formData.date}
+            onChange={handleChange}
+            required
+          />
+        </label>
 
-      {/* Time */}
-      <label>
-        Час:
-        <input
-          type="time"
-          name="time"
-          value={formData.time}
-          onChange={handleChange}
-          required
-        />
-      </label>
+        {/* Time */}
+        <label>
+          Час:
+          <input
+            type="time"
+            name="time"
+            value={formData.time}
+            onChange={handleChange}
+            required
+          />
+        </label>
 
-      {/* contactName */}
-      <label>
-        Име за контакт:
-        <input
-          type="contactName"
-          name="contactName"
-          value={formData.contactName}
-          onChange={handleChange}
-          required
-        />
-      </label>
+        {/* contactName */}
+        <label>
+          Име за контакт:
+          <input
+            type="text"
+            name="contactName"
+            value={formData.contactName}
+            onChange={handleChange}
+            required
+          />
+        </label>
 
-      {/* Email */}
-      <label>
-        Email за контакт:
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-      </label>
+        {/* Email */}
+        <label>
+          Email за контакт:
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </label>
 
-      {/* Phone */}
-      <label>
-        Телефон за връзка:
-        <input
-          type="tel"
-          name="phone"
-          value={formData.phone}
-          onChange={handleChange}
-          required
-        />
-      </label>
+        {/* Phone */}
+        <label>
+          Телефон за връзка:
+          <input
+            type="tel"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            required
+          />
+        </label>
 
-      {/* Additional Information */}
-      <label>
-        Допълнителна информация:
-        <textarea
-          name="additionalInfo"
-          value={formData.additionalInfo}
-          onChange={handleChange}
-          placeholder="Въведете допълнителна информация, която меже да ни е от полза?"
-        />
-      </label>
+        {/* Additional Information */}
+        <label>
+          Допълнителна информация:
+          <textarea
+            name="additionalInfo"
+            value={formData.additionalInfo}
+            onChange={handleChange}
+            placeholder="Въведете допълнителна информация, която меже да ни е от полза?"
+          />
+        </label>
 
-      <button type="submit">Изпрати запитване</button>
-    </form>
-  </div>
+        <button type="submit">Изпрати запитване</button>
+      </form>
+    </div>
   );
 };
 
 export default BookParty;
-
-
