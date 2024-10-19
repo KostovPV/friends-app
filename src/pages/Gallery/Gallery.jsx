@@ -4,14 +4,14 @@ import { db } from '../../firebaseConfig';
 import ImageCard from '../../components/ImageCard/ImageCard';
 import './Gallery.css';
 import { useAuthContext } from '../../hooks/useAuthContext';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
 
 export default function Gallery() {
     const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(true);
     const [activeImageId, setActiveImageId] = useState(null);
     const { user } = useAuthContext();
-    const navigate = useNavigate(); // Use useNavigate for routing
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchImages = async () => {
@@ -38,17 +38,29 @@ export default function Gallery() {
     };
 
     const handleEdit = (image) => {
-        navigate(`/edit/${image.id}`); // Navigate to edit page with image ID
+        navigate(`/edit/${image.id}`);
     };
 
     const handleDelete = async (imageId) => {
         try {
-            await deleteDoc(doc(db, 'images', imageId)); // Delete image from Firestore
-            setImages(images.filter(img => img.id !== imageId)); // Remove from local state
-            setActiveImageId(null); // Close modal
+            await deleteDoc(doc(db, 'images', imageId));
+            setImages(images.filter(img => img.id !== imageId));
+            setActiveImageId(null);
         } catch (error) {
             console.error('Error deleting image:', error);
         }
+    };
+
+    const handleNextImage = () => {
+        const currentIndex = images.findIndex(image => image.id === activeImageId);
+        const nextIndex = (currentIndex + 1) % images.length; // Loop back to the first image
+        setActiveImageId(images[nextIndex].id);
+    };
+
+    const handlePrevImage = () => {
+        const currentIndex = images.findIndex(image => image.id === activeImageId);
+        const prevIndex = (currentIndex - 1 + images.length) % images.length; // Loop back to the last image
+        setActiveImageId(images[prevIndex].id);
     };
 
     if (loading) {
@@ -77,9 +89,13 @@ export default function Gallery() {
                 <div className="modal" onClick={() => setActiveImageId(null)}>
                     <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                         <div className="modal-image-container">
-                            <button className="arrow left">&lt;</button>
+                            <button className="arrow left" onClick={handlePrevImage}>
+                                &lt;
+                            </button>
                             <img src={activeImage.url} alt={activeImage.fileName} className="card__large-image" />
-                            <button className="arrow right">&gt;</button>
+                            <button className="arrow right" onClick={handleNextImage}>
+                                &gt;
+                            </button>
                         </div>
                         {user?.role === "admin" && (
                             <>
