@@ -6,16 +6,16 @@ import UserProfile from '../UserProfile/UserProfile';
 
 function Header() {
   const { user, authIsReady } = useAuthContext();
-  console.log('User:', user, 'Auth Is Ready:', authIsReady);
+  // console.log('User:', user, 'Auth Is Ready:', authIsReady);
 
   useEffect(() => {
-    if (authIsReady) {
-      console.log('User state has changed:', user);
-    }
+    // if (authIsReady) {
+    //   console.log('User state has changed:', user);
+    // }
   }, [user, authIsReady]);  // Re-render the Header component when the user changes
 
   if (!authIsReady) {
-    return <header>Loading...</header>; // Show loading until auth is ready
+    return <header>Зареждане...</header>; // Show loading until auth is ready
   }
 
   return (

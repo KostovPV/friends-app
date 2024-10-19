@@ -5,7 +5,7 @@ const Contacts = () => {
   const [loading, setLoading] = useState(true);
   const friendsLocation = { lat: 42.525899, lng: 27.454538 };
   const GOOGLE_MAP = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
-  console.log(GOOGLE_MAP);
+ 
   
 
   useEffect(() => {
