@@ -24,7 +24,7 @@ function Signup() {
       // Create the user with email and password in Firebase Auth
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      console.log("User created:", user);
+      // console.log("User created:", user);
 
       let imageUrl = "";
 
@@ -44,13 +44,13 @@ function Signup() {
               console.log("Каването е " + progress + "% завършено");
             },
             (error) => {
-              console.error("Error during image upload:", error);
+              // console.error("Error during image upload:", error);
               toast.error("Неуспешно качване на снимка!");
               reject(error);
             },
             async () => {
               imageUrl = await getDownloadURL(uploadTask.snapshot.ref);
-              console.log("Image uploaded successfully, URL:", imageUrl);
+              // console.log("Image uploaded successfully, URL:", imageUrl);
               resolve();
             }
           );
@@ -81,13 +81,13 @@ function Signup() {
           },
         });
 
-        console.log("User successfully registered!");
+        // console.log("User successfully registered!");
         toast.success("Успешна регистрация!", {
           position: "top-center",
         });
       }
     } catch (error) {
-      console.log("Error during registration:", error.message);
+      // console.log("Error during registration:", error.message);
       let errorMessage = "Възникна грешка по време на регистрацията.";
 
       // Map Firebase error codes to friendly messages
