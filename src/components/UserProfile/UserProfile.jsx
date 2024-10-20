@@ -4,7 +4,6 @@ import './UserProfile.css';
 
 function UserProfile({ user }) {
   const navigate = useNavigate();
-  console.log('user', user);
   const goToProfile = () => {
     navigate('/profile');
   };
@@ -15,8 +14,7 @@ function UserProfile({ user }) {
         src={user?.photo || user?.photoURL || 'default-avatar.png'}
         alt="User Avatar"
         className="user-avatar"
-        width={40}
-        height={40}
+       
       />
       <div className="user-name">
         <span>{user?.firstName || 'Потребител'}</span>

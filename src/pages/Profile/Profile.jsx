@@ -19,7 +19,7 @@ function Profile() {
   const fetchUserData = async () => {
     auth.onAuthStateChanged(async (user) => {
       if (user) {
-        console.log('user->', user);
+        // console.log('user->', user);
         // Check if the user logged in via Google
         const providerId = user.providerData[0]?.providerId;
         setIsGoogleUser(providerId === 'google.com'); // Set flag if Google login
@@ -32,10 +32,9 @@ function Profile() {
           setFirstName(data.firstName || "");
           setLastName(data.lastName || "");
           setEmail(data.email || "");
-          console.log('data', data);
         }
       } else {
-        console.log("User is not logged in");
+        // console.log("Потребителя не е влязъл в профила си!");
       }
     });
   };
@@ -52,7 +51,7 @@ function Profile() {
     if (!user || isGoogleUser) return; // Prevent updates for Google users
 
     if (!firstName.trim()) {
-      toast.error("First name is required!");
+      toast.error("Името е задължително!");
       return;
     }
 
@@ -72,17 +71,17 @@ function Profile() {
             "state_changed",
             (snapshot) => {
               const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-              console.log("Upload is " + progress + "% done");
+              console.log("Качването е " + progress + "% завършено");
             },
             (error) => {
-              console.error("Error during image upload:", error);
-              toast.error("Image upload failed");
+              console.error("Грешка по време на качване:", error);
+              toast.error("Качването е неуспешно");
               setImageUploading(false); // Ensure state is updated even if upload fails
               reject(error);
             },
             async () => {
               imageUrl = await getDownloadURL(uploadTask.snapshot.ref);
-              console.log("Image uploaded successfully, URL:", imageUrl);
+              console.log("Сниката е качена успешно, URL:", imageUrl);
               resolve();
             }
           );
@@ -98,12 +97,12 @@ function Profile() {
         photo: imageUrl, // Save the new image URL if available
       });
 
-      toast.success("Profile updated successfully");
+      toast.success("Профила е обновен успешно.");
       setEditMode(false); // Exit edit mode after saving changes
       fetchUserData(); // Refresh user data
     } catch (error) {
-      console.error("Error updating profile:", error.message);
-      toast.error("Profile update failed");
+      // console.error("Грешка по време на обновяване на профила:", error.message);
+      toast.error("Грешка по време на обновяване на профила");
     }
   };
 
@@ -112,7 +111,7 @@ function Profile() {
     try {
       await auth.signOut();
       window.location.href = "/login";
-      console.log("User logged out successfully!");
+      // console.log("User logged out successfully!");
     } catch (error) {
       console.error("Error logging out:", error.message);
     }

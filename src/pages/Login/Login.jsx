@@ -22,28 +22,28 @@ function Login() {
       // Dispatch the LOGIN action after successful login
       dispatch({ type: "LOGIN", payload: user });
 
-      console.log("User logged in Successfully");
-      toast.success("User logged in Successfully", {
+      // console.log("User logged in Successfully");
+      toast.success("Успещно влязохте в профила си!", {
         position: "top-center",
       });
       navigate("/");
     } catch (error) {
       console.log(error.message);
-      let errorMessage = "An error occurred during login.";
+      let errorMessage = "Възникна грешка по време на влизане!";
 
       // Map Firebase error codes to friendly messages
       switch (error.code) {
         case "auth/user-not-found":
-          errorMessage = "No user found with this email.";
+          errorMessage = "Не е открит такъв потребител.";
           break;
         case "auth/wrong-password":
-          errorMessage = "Incorrect password. Please try again.";
+          errorMessage = "Неправилна парола или email.";
           break;
         case "auth/invalid-email":
-          errorMessage = "The email address is not valid.";
+          errorMessage = "Email-a не е валиден.";
           break;
         case "auth/too-many-requests":
-          errorMessage = "Too many login attempts. Please try again later.";
+          errorMessage = "Твърде много опити за вход. Моля опитайте по-късно!";
           break;
         default:
           errorMessage = error.message;

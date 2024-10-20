@@ -13,7 +13,7 @@ export default function Footer() {
           <li><Link to="/contacts">Контакти</Link></li> 
       </ul>
       <div className="footer__copyright">
-        <small>All Rights Resrved &copy; Copyright, Plan B Web Services</small>
+        <small>Всички права запазени ©. Страницата е направена от Plan B Web Services.</small>
       </div>
     </footer>
   )

@@ -23,6 +23,7 @@
     padding: 2rem;
     background-color: var(--clr-gray100);
     min-height: 100vh;
+    box-sizing: border-box; /* Ensures padding doesn't cause overflow */
 }
 
 h2 {
@@ -42,17 +43,19 @@ h2 {
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 600px;
+    max-width: 800px;
     background: white;
     padding: 2rem;
     border-radius: var(--radius);
     box-shadow: 0 4px 20px var(--clr-gray300);
+    box-sizing: border-box; 
 }
 
 .edit-form label {
     font-weight: 600;
     color: var(--clr-gray600);
     margin-bottom: 0.5rem;
+    display: block; 
 }
 
 .edit-form input[type="text"],
@@ -66,6 +69,7 @@ h2 {
     font-family: 'Oxygen', sans-serif;
     font-size: 1rem;
     color: var(--clr-gray700);
+    box-sizing: border-box;
 }
 
 .edit-form textarea {
@@ -103,6 +107,7 @@ h2 {
     justify-content: space-between;
     align-items: center;
     margin-top: 4rem;
+    flex-wrap: wrap;
 }
 
 .edit-actions button {
@@ -145,7 +150,7 @@ h2 {
     color: var(--clr-primary-hover);
 }
 
-/* Responsive design */
+
 @media (max-width: 768px) {
     .edit-page-container {
         padding: 1rem;
@@ -163,6 +168,10 @@ h2 {
     .edit-actions button {
         width: 100%;
         margin: 0;
+    }
+    
+    .edit-form .delete-button {
+        margin-left: 0;
     }
 }
 
