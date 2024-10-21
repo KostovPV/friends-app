@@ -19,6 +19,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Galery from './pages/Gallery/Gallery';
 import EditImage from './pages/EditImage/EditImage';
+import Statistics from './pages/Statistics/Stastistics';
 
 
 function App() {
@@ -37,6 +38,16 @@ function App() {
             <Route path="/terms" element={<Terms />} />
             <Route path="/book" element={<BookParty />} />
             <Route
+              path='/edit/:id'
+              element={!user ? (
+                <Navigate to="/" /> // Redirect to home if user is not logged in
+              ) : user.role !== 'admin' ? (
+                <Navigate to="/" /> // Redirect if user is not admin
+              ) : (
+                <EditImage />
+              )}
+            />
+            <Route
               path='/upload'
               element={!user ? (
                 <Navigate to="/" /> // Redirect to home if user is not logged in
@@ -47,13 +58,23 @@ function App() {
               )}
             />
              <Route
-              path='/edit/:id'
+              path='/upload'
               element={!user ? (
                 <Navigate to="/" /> // Redirect to home if user is not logged in
               ) : user.role !== 'admin' ? (
                 <Navigate to="/" /> // Redirect if user is not admin
               ) : (
-                <EditImage />
+                <Upload />
+              )}
+            />
+             <Route
+              path='/statistics'
+              element={!user ? (
+                <Navigate to="/" /> // Redirect to home if user is not logged in
+              ) : user.role !== 'admin' ? (
+                <Navigate to="/" /> // Redirect if user is not admin
+              ) : (
+                <Statistics />
               )}
             />
             <Route

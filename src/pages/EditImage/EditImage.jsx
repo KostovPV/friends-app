@@ -94,7 +94,7 @@ export default function EditImagePage() {
                 comment: comment, 
             });
 
-            alert('Image updated successfully');
+            alert('Успешно качена снимка!');
             navigate('/gallery'); 
         } catch (error) {
             console.error('Error updating image:', error);
@@ -180,7 +180,7 @@ export default function EditImagePage() {
                                     ))}
                                 </ul>
                             ) : (
-                                <p>No users tagged yet.</p>
+                                <p>Няма отбелязани потребители все още.</p>
                             )}
                         </div>
 

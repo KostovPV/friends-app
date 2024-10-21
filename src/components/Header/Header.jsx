@@ -48,6 +48,9 @@ function Header() {
                   {user.role === 'admin' && (
                     <li><a href="/upload">Качи снимка</a></li>
                   )}
+                   {user.role === 'admin' && (
+                    <li><a href="/statistics">Статистика</a></li>
+                  )}
                 </>
               )}
             </ul>

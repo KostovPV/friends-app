@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db, storage } from "../../firebaseConfig";
-import { setDoc, doc } from "firebase/firestore";
+import { setDoc, doc, updateDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import SignInwithGoogle from "../../components/SignInWIthGoogle/SignInWIthGoogle";
@@ -21,21 +21,15 @@ function Signup() {
     e.preventDefault();
 
     try {
-      // Create the user with email and password in Firebase Auth
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      // console.log("User created:", user);
-
       let imageUrl = "";
 
-      // If a profile image is selected, upload it to Firebase Storage
       if (file) {
         setImageUploading(true); 
-
         const storageRef = ref(storage, `profileImages/${user.uid}`);
         const uploadTask = uploadBytesResumable(storageRef, file);
 
-        // Upload file to Firebase Storage and get the download URL
         await new Promise((resolve, reject) => {
           uploadTask.on(
             "state_changed",
@@ -44,59 +38,54 @@ function Signup() {
               console.log("Каването е " + progress + "% завършено");
             },
             (error) => {
-              // console.error("Error during image upload:", error);
               toast.error("Неуспешно качване на снимка!");
               reject(error);
             },
             async () => {
               imageUrl = await getDownloadURL(uploadTask.snapshot.ref);
-              // console.log("Image uploaded successfully, URL:", imageUrl);
               resolve();
             }
           );
         });
 
-        setImageUploading(false); // Reset image uploading state after completion
+        setImageUploading(false); 
       }
 
       if (user) {
-        // Save user information to Firestore, including the image URL
         await setDoc(doc(db, "Users", user.uid), {
           email: user.email,
           firstName: fname,
           lastName: lname,
-          photo: imageUrl || "", 
+          photo: imageUrl || "",
           role: "user", 
+          visitCount: 1,
+          lastLogin: new Date(),
         });
 
-        // Dispatch the LOGIN action after successful signup
         dispatch({
           type: "LOGIN",
           payload: {
             ...user,
             firstName: fname,
             lastName: lname,
-            photoURL: imageUrl, // Add image URL to user data
+            photoURL: imageUrl,
             role: "user",
           },
         });
 
-        // console.log("User successfully registered!");
         toast.success("Успешна регистрация!", {
           position: "top-center",
         });
       }
     } catch (error) {
-      // console.log("Error during registration:", error.message);
       let errorMessage = "Възникна грешка по време на регистрацията.";
 
-      // Map Firebase error codes to friendly messages
       switch (error.code) {
         case "auth/email-already-in-use":
-          errorMessage = "Email-а е вече регистриран. Моля въведете друг.";
+          errorMessage = "Email-а е вече регистриран.";
           break;
         case "auth/weak-password":
-          errorMessage = "Твърде лесна парола. Моля въведете по-сигурна парола";
+          errorMessage = "Твърде лесна парола.";
           break;
         case "auth/invalid-email":
           errorMessage = "Неавлиден email";
@@ -116,7 +105,6 @@ function Signup() {
       <form className="form" onSubmit={handleRegister}>
         <span>Регистрация</span>
 
-        {/* First Name */}
         <input
           type="text"
           className="form-control"
@@ -125,7 +113,6 @@ function Signup() {
           required
         />
 
-        {/* Last Name */}
         <input
           type="text"
           className="form-control"
@@ -134,7 +121,6 @@ function Signup() {
           required
         />
 
-        {/* Email */}
         <input
           type="email"
           className="form-control"
@@ -143,7 +129,6 @@ function Signup() {
           required
         />
 
-        {/* Password */}
         <input
           type="password"
           className="form-control"
@@ -152,7 +137,6 @@ function Signup() {
           required
         />
 
-        {/* Profile Image Upload */}
         <div className="upload-container">
           <label>Kачи профилна снимка</label>
           <input
@@ -162,17 +146,14 @@ function Signup() {
           />
         </div>
 
-        {/* Submit Button */}
         <button type="submit" className="btn btn-primary" disabled={imageUploading}>
           {imageUploading ? "Качване..." : "Регистрирай се"}
         </button>
 
-        {/* Login Link */}
         <p className="forgot-password text-right">
           Вече имаш регистрация? <a href="/login">Влез</a>
         </p>
 
-        {/* Google Sign Up Button */}
         <SignInwithGoogle />
       </form>
     </div>
