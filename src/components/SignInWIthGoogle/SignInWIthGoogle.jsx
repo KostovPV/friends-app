@@ -19,17 +19,20 @@ function SignInwithGoogle() {
         const userDocRef = doc(db, "Users", user.uid);
         const userDoc = await getDoc(userDocRef);
 
+       
         if (!userDoc.exists()) {
+          // Create new user document with role and other details
           await setDoc(userDocRef, {
             email: user.email,
-            firstName: user.displayName,
+            firstName: user.displayName.split(" ")[0], 
+            lastName: user.displayName.split(" ")[1] || "", 
             photo: user.photoURL,
-            lastName: "",
-            role: "user",
+            role: "user", // Assign "user" role
             visitCount: 1,
             lastLogin: new Date(),
           });
         } else {
+          // If user exists, update visit count and last login time
           const visitCount = (userDoc.data().visitCount || 0) + 1;
           await updateDoc(userDocRef, {
             lastLogin: new Date(),
@@ -41,9 +44,12 @@ function SignInwithGoogle() {
           position: "top-center",
         });
 
+        
         navigate("/");
+
       }
     } catch (error) {
+      // Show error toast
       toast.error("Грешка при влизане с Google", {
         position: "top-center",
       });
