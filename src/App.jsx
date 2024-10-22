@@ -20,6 +20,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Galery from './pages/Gallery/Gallery';
 import EditImage from './pages/EditImage/EditImage';
 import Statistics from './pages/Statistics/Stastistics';
+import TrackUserActivity from './components/TrackUserActivity/TrackUserActivity';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
 
   return (
     <BrowserRouter>
+    <TrackUserActivity />
       <div className='app-container'>
       <ToastContainer /> 
         <Header />

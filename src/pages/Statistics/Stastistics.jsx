@@ -1,47 +1,67 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../../firebaseConfig';
 import { collection, getDocs } from 'firebase/firestore';
-import TrackUserActivity from '../../components/TrackUserActivity/TrackUserActivity';
 
 export default function Statistics() {
-  const [statistics, setStatistics] = useState({
-    timeSpent: 0,
-    isReturningUser: false,
+  const [allUsersStats, setAllUsersStats] = useState([]);
+  const [summary, setSummary] = useState({
+    totalTimeSpent: 0,
+    averageTimeSpent: 0,
+    totalPageViews: 0,
+    newUsersCount: 0,
+    returningUsersCount: 0,
   });
-
-  const [allUsersStats, setAllUsersStats] = useState([]); // State to hold all users' data
 
   // Fetch all users' activity data from Firestore
   useEffect(() => {
     const fetchUserActivity = async () => {
       const querySnapshot = await getDocs(collection(db, 'UserActivity'));
       const userData = querySnapshot.docs.map((doc) => doc.data());
-      setAllUsersStats(userData); // Store user data in state
+      setAllUsersStats(userData);
+      calculateSummary(userData);
     };
 
     fetchUserActivity();
   }, []);
 
-  // Handle statistics update for the current user
-  const handleStatisticsUpdate = (newStats) => {
-    setStatistics((prevStats) => ({
-      ...prevStats,
-      ...newStats,
-    }));
+  // Calculate summary stats like total time spent, average time, etc.
+  const calculateSummary = (userData) => {
+    let totalTimeSpent = 0;
+    let totalPageViews = 0;
+    let newUsersCount = 0;
+    let returningUsersCount = 0;
+
+    userData.forEach((user) => {
+      totalTimeSpent += user.total_time_spent || 0;
+      totalPageViews += user.page_views || 0;
+      if (user.isReturningUser) {
+        returningUsersCount += 1;
+      } else {
+        newUsersCount += 1;
+      }
+    });
+
+    const averageTimeSpent = totalTimeSpent / userData.length;
+
+    setSummary({
+      totalTimeSpent,
+      averageTimeSpent: averageTimeSpent.toFixed(2),
+      totalPageViews,
+      newUsersCount,
+      returningUsersCount,
+    });
   };
 
   return (
     <div>
-      <h2>User Activity Statistics</h2>
+      <h2>Website User Statistics</h2>
 
-      {/* Display statistics for the current user */}
-      <p>Total Time Spent on Page: {statistics.timeSpent} seconds</p>
-      <p>
-        Visitor Type: {statistics.isReturningUser ? 'Returning Visitor' : 'New Visitor'}
-      </p>
-
-      {/* Track User Activity for the current user */}
-      <TrackUserActivity onStatisticsUpdate={handleStatisticsUpdate} />
+      <h3>Summary</h3>
+      <p>Total Time Spent: {summary.totalTimeSpent} seconds</p>
+      <p>Average Time Spent per User: {summary.averageTimeSpent} seconds</p>
+      <p>Total Page Views: {summary.totalPageViews}</p>
+      <p>New Users: {summary.newUsersCount}</p>
+      <p>Returning Users: {summary.returningUsersCount}</p>
 
       <h3>All Users Activity</h3>
       <table>
