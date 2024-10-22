@@ -11,7 +11,8 @@ export default function Statistics() {
     totalPageViews: 0,
     newUsersCount: 0,
     returningUsersCount: 0,
-    totalUsersCount: 0, // New field for total registered users
+    totalRegisteredUsersCount: 0, // Track normal registered users
+    totalGoogleUsersCount: 0, // Track Google signed-in users
   });
 
   // Fetch all users' activity data from Firestore
@@ -43,19 +44,28 @@ export default function Statistics() {
     let totalPageViews = 0;
     let newUsersCount = 0;
     let returningUsersCount = 0;
+    let totalRegisteredUsersCount = 0;
+    let totalGoogleUsersCount = 0;
 
     userData.forEach((user) => {
       totalTimeSpent += user.total_time_spent || 0;
       totalPageViews += user.page_views || 0;
+
       if (user.isReturningUser) {
         returningUsersCount += 1;
       } else {
         newUsersCount += 1;
       }
+
+      // Distinguish between registered and Google-signed-in users
+      if (user.isGoogleSignedIn) {
+        totalGoogleUsersCount += 1;
+      } else {
+        totalRegisteredUsersCount += 1;
+      }
     });
 
     const averageTimeSpent = totalTimeSpent / userData.length;
-    const totalUsersCount = userData.length; // Total number of registered users
 
     setSummary({
       totalTimeSpent,
@@ -63,7 +73,8 @@ export default function Statistics() {
       totalPageViews,
       newUsersCount,
       returningUsersCount,
-      totalUsersCount, // Set the total users count
+      totalRegisteredUsersCount, // Set total registered users
+      totalGoogleUsersCount, // Set total Google signed-in users
     });
   };
 
@@ -77,7 +88,8 @@ export default function Statistics() {
       <p>Total Page Views: {summary.totalPageViews}</p>
       <p>New Users: {summary.newUsersCount}</p>
       <p>Returning Users: {summary.returningUsersCount}</p>
-      <p>Total Registered Users: {summary.totalUsersCount}</p> {/* Display total registered users */}
+      <p>Total Registered Users: {summary.totalRegisteredUsersCount}</p> {/* Display total registered users */}
+      <p>Total Google Signed-In Users: {summary.totalGoogleUsersCount}</p> {/* Display total Google signed-in users */}
 
       <h3>All Users Activity</h3>
       <table>

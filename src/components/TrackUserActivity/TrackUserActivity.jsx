@@ -22,26 +22,27 @@ function TrackUserActivity() {
       // Periodic update of time spent every 5 seconds
       const intervalId = setInterval(async () => {
         const currentTime = Date.now();
-        timeSpent = (currentTime - startTime) / 1000; // Time in seconds
-
-        const timeSpentInMinutes = timeSpent / 60; // Convert to minutes
+        timeSpent = (currentTime - startTime) / 1000;
 
         const userRef = doc(db, 'UserActivity', user.uid);
         const userDoc = await getDoc(userRef);
 
+        const isGoogleUser = user.providerData && user.providerData[0]?.providerId === 'google.com';
+
         if (userDoc.exists()) {
           await updateDoc(userRef, {
-            total_time_spent: increment(timeSpentInMinutes), // Store time in minutes
+            total_time_spent: increment(timeSpent),
             page_views: increment(1),
             last_visit: new Date(),
           });
         } else {
           await setDoc(userRef, {
             email: user.email,
-            total_time_spent: timeSpentInMinutes, // Store time in minutes
+            total_time_spent: timeSpent,
             page_views: 1,
             last_visit: new Date(),
             isReturningUser: !!localStorage.getItem('isReturningUser'),
+            isGoogleSignedIn: isGoogleUser, // Mark if the user is signed in with Google
           });
         }
       }, 5000); // Update every 5 seconds
@@ -49,9 +50,7 @@ function TrackUserActivity() {
       const handleUnload = async () => {
         clearInterval(intervalId); // Stop the interval when the user leaves
         const endTime = Date.now();
-        timeSpent = (endTime - startTime) / 1000; // Time in seconds
-
-        const timeSpentInMinutes = timeSpent / 60; // Convert to minutes
+        timeSpent = (endTime - startTime) / 1000;
 
         if (user) {
           const userRef = doc(db, 'UserActivity', user.uid);
@@ -59,17 +58,18 @@ function TrackUserActivity() {
 
           if (userDoc.exists()) {
             await updateDoc(userRef, {
-              total_time_spent: increment(timeSpentInMinutes), // Store time in minutes
+              total_time_spent: increment(timeSpent),
               page_views: increment(1),
               last_visit: new Date(),
             });
           } else {
             await setDoc(userRef, {
               email: user.email,
-              total_time_spent: timeSpentInMinutes, // Store time in minutes
+              total_time_spent: timeSpent,
               page_views: 1,
               last_visit: new Date(),
               isReturningUser: !!localStorage.getItem('isReturningUser'),
+              isGoogleSignedIn: isGoogleUser, // Mark if the user is signed in with Google
             });
           }
         }
