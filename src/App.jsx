@@ -19,7 +19,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Galery from './pages/Gallery/Gallery';
 import EditImage from './pages/EditImage/EditImage';
-import Statistics from './pages/Statistics/Stastistics';
+import Statistics from './pages/Statistics/Statistics';
 import TrackUserActivity from './components/TrackUserActivity/TrackUserActivity';
 
 
