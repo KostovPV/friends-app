@@ -135,7 +135,11 @@
 .card__footer{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
+}
+.card__footer-right button {
+    margin: 0.3rem;
 }
 
 /* Media queries for small screens */

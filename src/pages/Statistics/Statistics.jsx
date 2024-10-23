@@ -82,26 +82,26 @@ const calculateSummary = (userData) => {
 
   return (
     <div className='statistics-container'>
-      <h2>Website User Statistics</h2>
+      <h2>Обобщена статистика за сайта</h2>
 
-      <h3>Summary</h3>
-      <p>Total Time Spent: {formatTime(summary.totalTimeSpent)}</p>
-      <p>Average Time Spent per User: {formatTime(summary.averageTimeSpent)}</p>
-      <p>Total Page Views: {summary.totalPageViews}</p>
-      <p>New Users: {summary.newUsersCount}</p>
-      <p>Returning Users: {summary.returningUsersCount}</p>
-      <p>Total Registered Users: {summary.totalRegisteredUsersCount}</p> {/* Display total registered users */}
-      <p>Total Google Signed-In Users: {summary.totalGoogleUsersCount}</p> {/* Display total Google signed-in users */}
+      <h3>Подробности</h3>
+      <p>Общо време прекарано: {formatTime(summary.totalTimeSpent)}</p>
+      <p>Средно време за потребител: {formatTime(summary.averageTimeSpent)}</p>
+      <p>Общо посещения на страници: {summary.totalPageViews}</p>
+      <p>Нови потребители: {summary.newUsersCount}</p>
+      <p>Стари потребители: {summary.returningUsersCount}</p>
+      <p>Общо регистрирани потребители: {summary.totalRegisteredUsersCount}</p> {/* Display total registered users */}
+      <p>Общо потребители влезли с Google account: {summary.totalGoogleUsersCount}</p> {/* Display total Google signed-in users */}
 
-      <h3>All Users Activity</h3>
+      <h3>Активнист на всички потребители</h3>
       <table>
         <thead>
           <tr>
             <th>Email</th>
-            <th>Total Time Spent</th>
-            <th>Page Views</th>
-            <th>Last Visit</th>
-            <th>Visitor Type</th>
+            <th>Общо прекарано време</th>
+            <th>Посещения на страници</th>
+            <th>Последно влизане</th>
+            <th>Тип посетител</th>
           </tr>
         </thead>
         <tbody>
@@ -115,7 +115,7 @@ const calculateSummary = (userData) => {
               <td>{formatTime(user.total_time_spent)}</td>
               <td>{user.page_views}</td>
               <td>{new Date(user.last_visit.seconds * 1000).toLocaleString()}</td>
-              <td>{user.isReturningUser ? 'Returning' : 'New'}</td>
+              <td>{user.isReturningUser ? 'Стар' : 'Нов'}</td>
             </tr>
           ))}
         </tbody>

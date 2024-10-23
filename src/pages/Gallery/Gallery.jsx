@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs, doc, deleteDoc } from 'firebase/firestore';
+import { collection, getDocs, doc, deleteDoc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
 import { db } from '../../firebaseConfig';
 import ImageCard from '../../components/ImageCard/ImageCard';
 import './Gallery.css';
@@ -35,6 +35,34 @@ export default function Gallery() {
 
     const handleImageClick = (imageId) => {
         setActiveImageId(activeImageId === imageId ? null : imageId);
+    };
+
+    const handleLike = async (image) => {
+        if (!user) {
+            alert('You need to be logged in to like an image.');
+            return;
+        }
+
+        const imageRef = doc(db, 'images', image.id);
+        const userHasLiked = image.likes?.includes(user.uid);
+
+        try {
+            if (userHasLiked) {
+                // Remove like
+                await updateDoc(imageRef, {
+                    likes: arrayRemove(user.uid),
+                });
+                setImages(images.map(img => img.id === image.id ? { ...img, likes: img.likes.filter(uid => uid !== user.uid) } : img));
+            } else {
+                // Add like
+                await updateDoc(imageRef, {
+                    likes: arrayUnion(user.uid),
+                });
+                setImages(images.map(img => img.id === image.id ? { ...img, likes: [...img.likes, user.uid] } : img));
+            }
+        } catch (error) {
+            console.error('Error updating likes:', error);
+        }
     };
 
     const handleEdit = (image) => {
@@ -81,6 +109,7 @@ export default function Gallery() {
                         isSelected={activeImageId === image.id}
                         user={user}
                         onImageClick={handleImageClick}
+                        onLike={handleLike}  
                     />
                 ))
             )}
@@ -103,6 +132,9 @@ export default function Gallery() {
                                 <button onClick={() => handleDelete(activeImage.id)}>Изтрий</button>
                             </>
                         )}
+                        <button onClick={() => handleLike(activeImage)}>
+                            {activeImage.likes?.includes(user?.uid) ? 'Харесвам' : 'Вече не харесвам'}
+                        </button>
                         <button onClick={() => setActiveImageId(null)}>Затвори</button>
                     </div>
                 </div>

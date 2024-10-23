@@ -66,7 +66,7 @@ td {
 }
 
 /* Responsive Behavior for Screens Smaller than 768px */
-@media (max-width: 768px) {
+@media (max-width: 940px) {
     
     .statistics-container {
         padding: 1rem;

@@ -32,10 +32,15 @@ export default function ImageCard({ image, isSelected, user, onImageClick, onLik
                 <div className="card__body">
                     <img src={image.url} className="card__image" alt={image.fileName} />
                     <div className="card__footer">
-                        {/* <button onClick={handleLikeClick}>
-                            {image.likes?.includes(user?.uid) ? 'Не харесвам' : 'Харесай'}
-                        </button> */}
+                       <div className='card__footer-left'>
                         {renderStars()}
+                       </div>
+                       <div className='card__footer-right'>
+                       <button onClick={handleLikeClick}>
+                            {image.likes?.includes(user?.uid) ? 'Не харесвам' : 'Харесай'}
+                        </button>
+                       </div>
+                       
                     </div>
                 </div>
             </div>
