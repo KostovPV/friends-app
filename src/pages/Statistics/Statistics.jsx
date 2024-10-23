@@ -20,7 +20,7 @@ export default function Statistics() {
     const fetchUserActivity = async () => {
       const querySnapshot = await getDocs(collection(db, 'UserActivity'));
       const userData = querySnapshot.docs.map((doc) => doc.data());
-      
+
       setAllUsersStats(userData);
       calculateSummary(userData);
     };
@@ -29,57 +29,59 @@ export default function Statistics() {
   }, []);
 
   // Convert time spent to minutes or hours
-  const formatTime = (minutes) => {
-    if (minutes >= 60) {
-      const hours = Math.floor(minutes / 60);
-      const remainingMinutes = Math.round(minutes % 60);
-      return `${hours}h ${remainingMinutes}m`;
+// Convert time spent to minutes or hours correctly
+const formatTime = (seconds) => {
+  const minutes = Math.floor(seconds / 60); // Convert to minutes
+  if (minutes >= 60) {
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
+    return `${hours}h ${remainingMinutes}m`;
+  }
+  return `${minutes} min`;
+};
+
+const calculateSummary = (userData) => {
+  let totalTimeSpentInSeconds = 0;
+  let totalPageViews = 0;
+  let newUsersCount = 0;
+  let returningUsersCount = 0;
+  let totalRegisteredUsersCount = 0;
+  let totalGoogleUsersCount = 0;
+
+  userData.forEach((user) => {
+    totalTimeSpentInSeconds += user.total_time_spent || 0;
+    totalPageViews += user.page_views || 0;
+
+    if (user.isReturningUser) {
+      returningUsersCount += 1;
+    } else {
+      newUsersCount += 1;
     }
-    return `${Math.round(minutes)} min`;
-  };
 
-  // Calculate summary stats like total time spent, average time, total registered users, etc.
-  const calculateSummary = (userData) => {
-    let totalTimeSpent = 0;
-    let totalPageViews = 0;
-    let newUsersCount = 0;
-    let returningUsersCount = 0;
-    let totalRegisteredUsersCount = 0;
-    let totalGoogleUsersCount = 0;
+    // Distinguish between registered and Google-signed-in users
+    if (user.isGoogleSignedIn) {
+      totalGoogleUsersCount += 1;
+    } else {
+      totalRegisteredUsersCount += 1;
+    }
+  });
 
-    userData.forEach((user) => {
-      totalTimeSpent += user.total_time_spent || 0;
-      totalPageViews += user.page_views || 0;
+  // Calculate the average time spent in seconds, then convert to minutes
+  const averageTimeSpentInSeconds = totalTimeSpentInSeconds / userData.length;
 
-      if (user.isReturningUser) {
-        returningUsersCount += 1;
-      } else {
-        newUsersCount += 1;
-      }
-
-      // Distinguish between registered and Google-signed-in users
-      if (user.isGoogleSignedIn) {
-        totalGoogleUsersCount += 1;
-      } else {
-        totalRegisteredUsersCount += 1;
-      }
-    });
-
-    const averageTimeSpent = totalTimeSpent / userData.length;
-
-    setSummary({
-      totalTimeSpent,
-      averageTimeSpent: averageTimeSpent.toFixed(2),
-      totalPageViews,
-      newUsersCount,
-      returningUsersCount,
-      totalRegisteredUsersCount, // Set total registered users
-      totalGoogleUsersCount, // Set total Google signed-in users
-    });
-  };
+  setSummary({
+    totalTimeSpent: totalTimeSpentInSeconds, // Still in seconds
+    averageTimeSpent: averageTimeSpentInSeconds.toFixed(2), // Still in seconds
+    totalPageViews,
+    newUsersCount,
+    returningUsersCount,
+    totalRegisteredUsersCount,
+    totalGoogleUsersCount,
+  });
+};
 
   return (
-    <div>
+    <div className='statistics-container'>
       <h2>Website User Statistics</h2>
 
       <h3>Summary</h3>
@@ -105,7 +107,11 @@ export default function Statistics() {
         <tbody>
           {allUsersStats.map((user, index) => (
             <tr key={index}>
-              <td>{user.email}</td>
+              <td>
+                <strong>
+                  {user.email}
+                </strong>
+              </td>
               <td>{formatTime(user.total_time_spent)}</td>
               <td>{user.page_views}</td>
               <td>{new Date(user.last_visit.seconds * 1000).toLocaleString()}</td>

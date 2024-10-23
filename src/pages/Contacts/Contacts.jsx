@@ -106,7 +106,7 @@ const Contacts = () => {
           <strong>Телефон:</strong> 0894 928 950
         </div>
         <div>
-          <strong>email:</strong> partycenterfriends@gmail.com
+          <strong>email:</strong>partycenter.friends@gmail.com
         </div>
       </div>
 

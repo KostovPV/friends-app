@@ -1,6 +1,4 @@
-/* @import url("https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap");
- */
-
+/* General Container Styles */
 .statistics-container {
     font-family: 'Oxygen', sans-serif;
     padding: 2rem;
@@ -8,7 +6,7 @@
     border-radius: var(--radius);
     box-shadow: 0 4px 12px var(--clr-gray300);
     max-width: 1200px;
-    margin: 2rem auto;
+    /* margin: 2rem auto; */
 }
 
 h2, h3 {
@@ -23,12 +21,15 @@ p {
     margin-bottom: 0.5rem;
 }
 
+/* Table Styles */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 1rem;
     background-color: white;
     box-shadow: 0 4px 12px var(--clr-gray300);
+    overflow-x: auto; /* Allows horizontal scroll on small screens */
+   
 }
 
 th, td {
@@ -37,6 +38,7 @@ th, td {
     border-bottom: 1px solid var(--clr-gray300);
     font-family: 'Oxygen', sans-serif;
     color: var(--clr-gray700);
+    white-space: nowrap; /* Prevent text from wrapping */
 }
 
 th {
@@ -58,16 +60,62 @@ td {
     font-weight: 500;
 }
 
+/* Responsive Table Container */
+.statistics-container {
+    overflow-x: auto; /* Allows horizontal scrolling for tables on small screens */
+}
+
+/* Responsive Behavior for Screens Smaller than 768px */
 @media (max-width: 768px) {
+    
     .statistics-container {
         padding: 1rem;
     }
-
+    .statistics-container tbody{
+       display: flex;
+       flex-direction: column;
+       justify-items: center;
+       align-items: center;
+       /* width: 100%; */
+    }
     table {
         font-size: 0.875rem;
+        width: 70%;
     }
 
     th, td {
         padding: 0.75rem;
+    }
+
+    /* Stack table cells vertically on very small screens (e.g., phones) */
+    table, th, td {
+        display: block;
+        width: 100%;
+    }
+
+    thead {
+        display: none; /* Hide table header on small screens */
+    }
+
+    tbody tr {
+        display: block;
+        margin-bottom: 1rem;
+        border-bottom: 2px solid var(--clr-gray300);
+        width: 100%;
+    }
+
+    tbody tr td {
+        display: flex;
+        justify-content: center;
+       
+        align-content: center;
+        padding: 0.75rem;
+    }
+
+    tbody tr td:before {
+        content: attr(data-label); /* Add label for each cell */
+        font-weight: bold;
+        text-transform: capitalize;
+        color: var(--clr-gray600);
     }
 }
