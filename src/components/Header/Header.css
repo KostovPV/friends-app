@@ -35,11 +35,14 @@ nav ul {
 nav ul li {
     margin: 0 1rem;
     list-style: none;
+    /* padding-left: 0.3rem; */
 }
 
 nav ul li a {
     text-decoration: none;
     color: #e8dfdf;
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
 }
 
 .logo {
@@ -228,6 +231,8 @@ nav ul li a {
     .top-social {
         margin-left: auto;
     }
-   
+    nav ul{
+        width: 70%;
+    }
 }
 

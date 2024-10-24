@@ -28,7 +28,7 @@ function App() {
 
   return (
     <BrowserRouter>
-    <TrackUserActivity />
+    {authIsReady && <TrackUserActivity />}
       <div className='app-container'>
       <ToastContainer /> 
         <Header />

@@ -23,7 +23,7 @@ function Login() {
       dispatch({ type: "LOGIN", payload: user });
 
       // console.log("User logged in Successfully");
-      toast.success("Успещно влязохте в профила си!", {
+      toast.success("Успешно влязохте в профила си!", {
         position: "top-center",
       });
       navigate("/");
