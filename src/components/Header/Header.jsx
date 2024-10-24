@@ -62,7 +62,7 @@ function Header() {
             <a href="https://www.facebook.com/profile.php?id=61566720999276" aria-label="Facebook Profile">
               <FaFacebook className="social-icon" />
             </a>
-            <a href="https://www.instagram.com" aria-label="Instagram Profile">
+            <a href="https://www.instagram.com/kidscenterfriends" aria-label="Instagram Profile">
               <FaInstagram className="social-icon" />
             </a>
           </div>
