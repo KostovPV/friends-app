@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { storage, db } from '../../firebaseConfig'; // Adjust path as needed
-import { collection, addDoc, getDocs } from 'firebase/firestore'; // Firestore functions
+import { storage, db } from '../../firebaseConfig';
+import { collection, addDoc, getDocs } from 'firebase/firestore';
+import './Upload.css';
 
 export default function Upload() {
   const [imageFile, setImageFile] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [users, setUsers] = useState([]); // Fetched users list
-  const [selectedUsers, setSelectedUsers] = useState([]); // Store selected users
-  const [manualUsernames, setManualUsernames] = useState([]); // Store manually entered usernames
-  const [manualUsernameInput, setManualUsernameInput] = useState(""); // Input field for manual username
-  const [comment, setComment] = useState(""); // User's comment
+  const [users, setUsers] = useState([]);
+  const [selectedUsers, setSelectedUsers] = useState([]);
+  const [manualUsernames, setManualUsernames] = useState([]);
+  const [manualUsernameInput, setManualUsernameInput] = useState("");
+  const [comment, setComment] = useState("");
 
   // Fetch users from Firestore when the component mounts
   useEffect(() => {
@@ -54,7 +55,7 @@ export default function Upload() {
   const addManualUser = () => {
     if (manualUsernameInput && !manualUsernames.includes(manualUsernameInput)) {
       setManualUsernames((prev) => [...prev, manualUsernameInput]);
-      setManualUsernameInput(""); // Clear input after adding
+      setManualUsernameInput("");
     }
   };
 
@@ -82,29 +83,28 @@ export default function Upload() {
         taggedUsers: allTaggedUsers, // Save both dropdown and manually entered users
         comment: comment,
         createdAt: new Date(),
-        likes: [], // Initialize likes as an empty array
-        comments: [], // Initialize comments array for future use
+        likes: [],
+        comments: [],
       });
 
       console.log("File available at:", downloadUrl);
     } catch (error) {
       console.error("Error uploading file:", error);
-      setError("Error uploading file: " + error.message); // Set error state
+      setError("Error uploading file: " + error.message);
     } finally {
       setLoading(false); // Reset loading state
     }
   };
 
   return (
-    <div>
-      <h2>Upload an Image</h2>
+    <div className="upload-page-container">
 
-      {/* Image upload input */}
+      <h2>Качи снимка</h2>
       <input type="file" accept="image/*" onChange={handleFileChange} />
 
       {/* User Dropdown for tagging */}
-      <div>
-        <label>Select users to tag:</label>
+      <div className='select-users'>
+        <label>Изберете потребители за отбелязване:</label>
         <select multiple onChange={handleUserSelect} value={selectedUsers}>
           {users.map((user) => (
             <option key={user.id} value={user.email}>
@@ -112,32 +112,32 @@ export default function Upload() {
             </option>
           ))}
         </select>
+        <div className='select-unregistered-users'>
+          <span>Не виждаш потребител в спъсъкс с регистрирани потребители? </span>
+
+          <p>Добави име на потребител:</p>
+          <input
+            type="text"
+            value={manualUsernameInput}
+            onChange={(e) => setManualUsernameInput(e.target.value)}
+            placeholder="Въведи потребител, който да отбележиш"
+          />
+          <button onClick={addManualUser}>Добави име</button>
+        </div>
       </div>
 
-      {/* Manually add a user tag */}
-      <div>
-        <input
-          type="text"
-          value={manualUsernameInput}
-          onChange={(e) => setManualUsernameInput(e.target.value)}
-          placeholder="Enter username to tag"
-        />
-        <button onClick={addManualUser}>Add Manually</button>
-      </div>
-
-      {/* Comment Input */}
-      <div>
-        <label>Add a comment:</label>
+      <div className='comments-area'>
+        <label>Добави коментар:</label>
         <textarea
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-          placeholder="Enter your comment"
+          placeholder="Въведете вашият коментар"
         ></textarea>
       </div>
 
       {/* Show selected users */}
       <div>
-        <h3>Tagged Users:</h3>
+        <h3>Отбелязани потребители:</h3>
         {selectedUsers.length > 0 || manualUsernames.length > 0 ? (
           <ul>
             {/* List selected users from dropdown */}
@@ -150,12 +150,12 @@ export default function Upload() {
             ))}
           </ul>
         ) : (
-          <p>No users tagged yet.</p>
+          <p>Все още няма отбелязани потребители.</p>
         )}
       </div>
 
       <button onClick={uploadImage} disabled={loading}>
-        {loading ? "Uploading..." : "Upload"}
+        {loading ? "Качване..." : "Качи снимка"}
       </button>
 
       {/* Error message */}
@@ -165,7 +165,7 @@ export default function Upload() {
       {imageUrl && (
         <div>
           <h3>Uploaded Image:</h3>
-          <img src={imageUrl} alt="Uploaded file" width="200" />
+          <img src={imageUrl} alt="Прикачен файл" width="200" />
         </div>
       )}
     </div>

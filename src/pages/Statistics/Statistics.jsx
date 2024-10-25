@@ -11,8 +11,9 @@ export default function Statistics() {
     totalPageViews: 0,
     newUsersCount: 0,
     returningUsersCount: 0,
-    totalRegisteredUsersCount: 0, // Track normal registered users
-    totalGoogleUsersCount: 0, // Track Google signed-in users
+    totalRegisteredUsersCount: 0,
+    totalGoogleUsersCount: 0,
+    totalUsers: 0, 
   });
 
   // Fetch all users' activity data from Firestore
@@ -29,56 +30,55 @@ export default function Statistics() {
   }, []);
 
   // Convert time spent to minutes or hours
-// Convert time spent to minutes or hours correctly
-const formatTime = (seconds) => {
-  const minutes = Math.floor(seconds / 60); // Convert to minutes
-  if (minutes >= 60) {
-    const hours = Math.floor(minutes / 60);
-    const remainingMinutes = minutes % 60;
-    return `${hours}h ${remainingMinutes}m`;
-  }
-  return `${minutes} min`;
-};
-
-const calculateSummary = (userData) => {
-  let totalTimeSpentInSeconds = 0;
-  let totalPageViews = 0;
-  let newUsersCount = 0;
-  let returningUsersCount = 0;
-  let totalRegisteredUsersCount = 0;
-  let totalGoogleUsersCount = 0;
-
-  userData.forEach((user) => {
-    totalTimeSpentInSeconds += user.total_time_spent || 0;
-    totalPageViews += user.page_views || 0;
-
-    if (user.isReturningUser) {
-      returningUsersCount += 1;
-    } else {
-      newUsersCount += 1;
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    if (minutes >= 60) {
+      const hours = Math.floor(minutes / 60);
+      const remainingMinutes = minutes % 60;
+      return `${hours}h ${remainingMinutes}m`;
     }
+    return `${minutes} min`;
+  };
 
-    // Distinguish between registered and Google-signed-in users
-    if (user.isGoogleSignedIn) {
-      totalGoogleUsersCount += 1;
-    } else {
-      totalRegisteredUsersCount += 1;
-    }
-  });
+  
+  const calculateSummary = (userData) => {
+    let totalTimeSpentInSeconds = 0;
+    let totalPageViews = 0;
+    let newUsersCount = 0;
+    let returningUsersCount = 0;
+    let totalRegisteredUsersCount = 0;
+    let totalGoogleUsersCount = 0;
 
-  // Calculate the average time spent in seconds, then convert to minutes
-  const averageTimeSpentInSeconds = totalTimeSpentInSeconds / userData.length;
+    userData.forEach((user) => {
+      totalTimeSpentInSeconds += user.total_time_spent || 0;
+      totalPageViews += user.page_views || 0;
 
-  setSummary({
-    totalTimeSpent: totalTimeSpentInSeconds, // Still in seconds
-    averageTimeSpent: averageTimeSpentInSeconds.toFixed(2), // Still in seconds
-    totalPageViews,
-    newUsersCount,
-    returningUsersCount,
-    totalRegisteredUsersCount,
-    totalGoogleUsersCount,
-  });
-};
+      if (user.isReturningUser) {
+        returningUsersCount += 1;
+      } else {
+        newUsersCount += 1;
+      }
+
+      if (user.isGoogleSignedIn) {
+        totalGoogleUsersCount += 1;
+      } else {
+        totalRegisteredUsersCount += 1;
+      }
+    });
+
+    const averageTimeSpentInSeconds = totalTimeSpentInSeconds / userData.length;
+
+    setSummary({
+      totalTimeSpent: totalTimeSpentInSeconds,
+      averageTimeSpent: averageTimeSpentInSeconds.toFixed(2),
+      totalPageViews,
+      newUsersCount,
+      returningUsersCount,
+      totalRegisteredUsersCount,
+      totalGoogleUsersCount,
+      totalUsers: totalRegisteredUsersCount + totalGoogleUsersCount, 
+    });
+  };
 
   return (
     <div className='statistics-container'>
@@ -90,8 +90,9 @@ const calculateSummary = (userData) => {
       <p>Общо посещения на страници: {summary.totalPageViews}</p>
       <p>Нови потребители: {summary.newUsersCount}</p>
       <p>Стари потребители: {summary.returningUsersCount}</p>
-      <p>Общо регистрирани потребители: {summary.totalRegisteredUsersCount}</p> {/* Display total registered users */}
-      <p>Общо потребители влезли с Google account: {summary.totalGoogleUsersCount}</p> {/* Display total Google signed-in users */}
+      <p>Регистрирани потребители: {summary.totalRegisteredUsersCount}</p>
+      <p>Потребители влезли с Google account: {summary.totalGoogleUsersCount}</p>
+      <p>Общо потребители: {summary.totalUsers}</p> 
 
       <h3>Активнист на всички потребители</h3>
       <table>
@@ -108,9 +109,7 @@ const calculateSummary = (userData) => {
           {allUsersStats.map((user, index) => (
             <tr key={index}>
               <td>
-                <strong>
-                  {user.email}
-                </strong>
+                <strong>{user.email}</strong>
               </td>
               <td>{formatTime(user.total_time_spent)}</td>
               <td>{user.page_views}</td>
