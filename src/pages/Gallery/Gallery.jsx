@@ -109,7 +109,7 @@ export default function Gallery() {
                         isSelected={activeImageId === image.id}
                         user={user}
                         onImageClick={handleImageClick}
-                        onLike={handleLike}  
+                        onLike={handleLike}
                     />
                 ))
             )}
@@ -132,9 +132,14 @@ export default function Gallery() {
                                 <button onClick={() => handleDelete(activeImage.id)}>Изтрий</button>
                             </>
                         )}
-                        <button onClick={() => handleLike(activeImage)}>
-                            {activeImage.likes?.includes(user?.uid) ? 'Харесвам' : 'Вече не харесвам'}
-                        </button>
+                        {user ? (
+                            <button onClick={() => handleLike(activeImage)}>
+                                {activeImage.likes?.includes(user.uid) ? 'Вече не харесвам' : 'Харесвам'}
+                            </button>
+                        ) : (
+                            <p>Регистрирай се за да харесаш</p>
+                        )}
+
                         <button onClick={() => setActiveImageId(null)}>Затвори</button>
                     </div>
                 </div>
