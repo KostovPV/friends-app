@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import './Slider.css';
 
-import kid1 from "../../assets/images/valq1.jpg";
-import kid2 from "../../assets/images/kids10.jpg";
-import kid3 from "../../assets/images/kids12.jpg";
-import kid4 from "../../assets/images/valq6.jpg";
-import kid5 from "../../assets/images/kids11.jpg";
-import kid6 from "../../assets/images/valq10.jpg";
-import kid7 from "../../assets/images/kids13.jpg";
+import kid1 from "../../assets/images/valq1.webp";
+import kid2 from "../../assets/images/kids10.webp";
+import kid3 from "../../assets/images/kids12.webp";
+import kid4 from "../../assets/images/valq6.webp";
+import kid5 from "../../assets/images/kids11.webp";
+import kid6 from "../../assets/images/valq10.webp";
+import kid7 from "../../assets/images/kids13.webp";
 
 const images = [kid1, kid2, kid3, kid4, kid5, kid6, kid7];
 
