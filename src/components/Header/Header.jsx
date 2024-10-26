@@ -7,11 +7,11 @@ import UserProfile from '../UserProfile/UserProfile';
 function Header() {
   const { user, authIsReady } = useAuthContext();
   useEffect(() => {
-  
-  }, [user, authIsReady]);  
+
+  }, [user, authIsReady]);
 
   if (!authIsReady) {
-    return <header>Зареждане...</header>; 
+    return <header>Зареждане...</header>;
   }
 
   return (
@@ -44,7 +44,7 @@ function Header() {
                   {user.role === 'admin' && (
                     <li><a href="/upload">Качи снимка</a></li>
                   )}
-                   {user.role === 'admin' && (
+                  {user.role === 'admin' && (
                     <li><a href="/statistics">Статистика</a></li>
                   )}
                 </>
@@ -55,12 +55,13 @@ function Header() {
 
         <div className="right">
           <div className="top-social">
-            <a href="https://www.facebook.com/profile.php?id=61566720999276" aria-label="Facebook Profile">
+            <a href="https://www.facebook.com/profile.php?id=61566720999276" aria-label="Visit Парти център Friends on Facebook">
               <FaFacebook className="social-icon" />
             </a>
-            <a href="https://www.instagram.com/kidscenterfriends" aria-label="Instagram Profile">
+            <a href="https://www.instagram.com/kidscenterfriends" aria-label="Visit Парти център Friends on Instagram">
               <FaInstagram className="social-icon" />
             </a>
+
           </div>
           <div className='user-link'>
             {user && <UserProfile user={user} />}
