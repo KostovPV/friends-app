@@ -1,14 +1,14 @@
 import { useEffect } from "react";
-import { useLogout } from "../../hooks/useLogout"; // Adjust path as needed
+import  useLogout  from "../../hooks/useLogout"; 
 
 const Logout = () => {
   const { logout } = useLogout();
 
   useEffect(() => {
-    logout(); // Automatically trigger logout when component loads
+    logout(); 
   }, [logout]);
 
-  return null; // No UI will be rendered
+  return null; 
 };
 
 export default Logout;
