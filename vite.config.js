@@ -1,22 +1,19 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import dotenv from 'dotenv';
-import { sitemap } from 'vite-plugin-sitemap';
+import sitemap from 'vite-plugin-sitemap'; // Updated import statement
 
-
+// Load environment variables from .env
 dotenv.config();
 
-// Define the base URL of your website for the sitemap
-const BASE_URL = process.env.VITE_BASE_URL || 'http://localhost:3000'; // Default to localhost if BASE_URL is not set
+const BASE_URL = process.env.VITE_BASE_URL || 'http://localhost:3000';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
     sitemap({
-      // Sitemap options
       baseUrl: BASE_URL,
-      outDir: 'dist', // Output directory for the generated sitemap
+      outDir: 'dist',
       routes: [
         { path: '/', lastmod: new Date().toISOString() },
         { path: '/gallery', lastmod: new Date().toISOString() },
@@ -29,7 +26,6 @@ export default defineConfig({
         { path: '/login', lastmod: new Date().toISOString() },
         { path: '/logout', lastmod: new Date().toISOString() },
         { path: '/profile', lastmod: new Date().toISOString() },
-        // Add other routes here
       ],
     }),
   ],
