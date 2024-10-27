@@ -1,10 +1,10 @@
 import './Intro.css';
-import hero1 from '../../assets/YaDQ.gif'; 
-import hero2 from '../../assets/3F3F.gif';
-import hero3 from '../../assets/3vIU.gif';
-import hero4 from '../../assets/1V8t.gif';
-import hero5 from '../../assets/ZbHT.gif';
-import hero6 from '../../assets/5LST.gif';
+import hero1 from '../../assets/YaDQ-resize.gif'; 
+import hero2 from '../../assets/3F3F-resize.gif';
+import hero3 from '../../assets/3vIU-resize.gif';
+import hero4 from '../../assets/1V8t-reduced.gif';
+import hero5 from '../../assets/ZbHT-resize.gif';
+import hero6 from '../../assets/5LST-resize.gif';
 
 export default function Intro() {
     return (
