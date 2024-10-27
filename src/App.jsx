@@ -19,6 +19,7 @@ import Gallery from './pages/Gallery/Gallery';
 import EditImage from './pages/EditImage/EditImage';
 import Statistics from './pages/Statistics/Statistics';
 import TrackUserActivity from './components/TrackUserActivity/TrackUserActivity';
+import PageNotFound from './components/404/404';
 
 function App() {
   const { user, authIsReady } = useAuthContext(); // Get user and authIsReady from context
@@ -76,6 +77,7 @@ function App() {
             />
             <Route path="/logout" element={<Logout />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path='*' element={<PageNotFound/>} />
           </Routes>
         )}
         <Footer />
