@@ -1,25 +1,13 @@
 .intro-container {
     
-    height: 8rem;
+    height: 5rem;
     background: #6b96ec;
     overflow: hidden; 
     display: flex;
-    flex-direction: column;
     align-items: center; 
    
 }
-.into-header{
-    height: 3rem;
-}
-.into-header h1{
-   font-size: 1.5rem;
-   margin: 0.3rem;
-   margin-top: 0.4rem;
-   padding: 0;
-   text-align: center;
-   color: #e8dfdf;
 
-}
 .intro-text {
     color: #e8dfdf;
     white-space: nowrap; 
@@ -46,23 +34,8 @@
     }
 }
 
-/* @media screen and (max-width: 500px) {
+@media screen and (max-width: 500px) {
     .intro-container {
         height: 4rem;
     }
-} */
-@media screen and (max-width: 930px) {
-    .into-header h1{
-        font-size: 1.5rem;
-     }
-}
-@media screen and (max-width: 480px) {
-    .into-header h1{
-        font-size: 1.2rem;
-     }
-}
-@media screen and (max-width: 400px) {
-    .into-header h1{
-        font-size: 1.1rem;
-     }
 }

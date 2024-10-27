@@ -30,7 +30,13 @@ export default function ImageCard({ image, isSelected, user, onImageClick, onLik
         <div className={`image-card ${isSelected ? 'selected' : ''}`} onClick={() => onImageClick(image.id)}>
             <div className="card">
                 <div className="card__body">
-                    <img src={image.url} className="card__image" alt={image.fileName} />
+                    <img 
+                    src={image.url} 
+                    className="card__image" 
+                    alt={image.fileName}
+                    loading="lazy" 
+                     />
+                    
                     <div className="card__footer">
                         <div className='card__footer-left'>
                             {renderStars()}

@@ -9,9 +9,6 @@ import hero6 from '../../assets/5LST.gif';
 export default function Intro() {
     return (
         <div className="intro-container">
-            <div className='into-header'>
-                <h1>Детски парти център Friends - място за забавни игри и безкрайни приключения!</h1>
-            </div>
             <div className="intro-text">
                 Добре дошли в Парти център Friends! 
                 <img src={hero1} alt="Hero 1" className="hero-icon" />
