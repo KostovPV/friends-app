@@ -7,7 +7,7 @@ export const Home = () => {
     return (
         <div className='home-container'>
             <Helmet>
-            <title>Начална страница - Friends детски парти център</title>
+            <title>Детски парти център Friends</title>
             <meta name="description" content="Friends - детски парти център в Бургас, жк. Изгрев. Игри, почасови забавления, празненства и организирани рождени дни за малчугани на едно място!" />
             </Helmet>
             <div className='home-component'>

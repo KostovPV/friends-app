@@ -147,7 +147,7 @@ function Profile() {
             </>
           ) : (
             <>
-              <h3>Edit Profile</h3>
+              <h3>Редактирай профил</h3>
               <form onSubmit={handleUpdateProfile}>
                 <div className="form-group">
                   <label>Име</label>
