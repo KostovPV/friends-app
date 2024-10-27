@@ -97,6 +97,10 @@ Firebase: Providing real-time data storage and secure authentication.
 
 ![upload](https://github.com/user-attachments/assets/11bbf51a-101f-45c6-967e-c6c4a75e0738)
 
+## Edit Page
+
+![edit](https://github.com/user-attachments/assets/5ae4b24d-96f2-4a56-8934-f3981580fc55)
+
 
 ## Statistics Page
 
