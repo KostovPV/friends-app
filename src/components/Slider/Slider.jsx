@@ -34,10 +34,17 @@ export default function Slider() {
         <div className="arrow left-arrow" onClick={goToPrevSlide}>
           &#10094;
         </div>
-        <div
-          className="slider-image"
-          style={{ backgroundImage: `url(${images[currentIndex]})` }}
-        ></div>
+        <div className="slider-image">
+          {images.map((image, index) => (
+            <img
+              key={index}
+              src={image}
+              alt={`Slide ${index + 1}`}
+              loading={index === currentIndex ? "eager" : "lazy"}
+              style={{ display: index === currentIndex ? 'block' : 'none' }}
+            />
+          ))}
+        </div>
         <div className="arrow right-arrow" onClick={goToNextSlide}>
           &#10095;
         </div>
