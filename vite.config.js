@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 import dotenv from 'dotenv';
 import sitemap from 'vite-plugin-sitemap';
 import viteCompression from 'vite-plugin-compression'; // Added compression for assets
+import viteImagemin from 'vite-plugin-imagemin';
 
 // Load environment variables from .env
 dotenv.config();
@@ -36,6 +37,12 @@ export default defineConfig({
       ext: '.br', // File extension for compressed assets
       deleteOriginalAssets: false, // Retain original files for browsers that don't support Brotli
       threshold: 10240, // Only compress files larger than 10kb
+    }),
+    viteImagemin({
+      gifsicle: { optimizationLevel: 7 },
+      optipng: { optimizationLevel: 7 },
+      mozjpeg: { quality: 20 },
+      svgo: { plugins: [{ removeViewBox: false }] }
     }),
   ],
   build: {
