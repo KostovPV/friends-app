@@ -4,7 +4,7 @@ import './Slider.css';
 import { getStorage, ref, listAll, getDownloadURL } from "firebase/storage";
 
 // Load the first image locally for faster initial rendering
-import firstImage from "../../assets/images/1_cropped.webp"; 
+import firstImage from "/assets/images/1_cropped.webp"; 
 
 export default function Slider() {
   const [images, setImages] = useState([firstImage]); // Initialize with the first image
