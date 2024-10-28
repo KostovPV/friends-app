@@ -12,6 +12,12 @@ footer {
     gap: 1.5rem;
     margin-bottom: 4rem;
     color: whitesmoke;
+    border-radius: 1.5rem;
+}
+
+.footer__more img{
+   
+    border-radius: 0.5rem;
 }
 
 .footer__categories a {

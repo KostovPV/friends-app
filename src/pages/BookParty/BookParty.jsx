@@ -7,7 +7,7 @@ import "./BookParty.css";
 
 const BookParty = () => {
   const [formData, setFormData] = useState({
-    ocation: "",
+    // ocation: "",
     childrenCount: "",
     theme: "",
     date: "",
@@ -33,7 +33,7 @@ const BookParty = () => {
     e.preventDefault();
 
     // Validate inputs before submission
-    if (!formData.ocation || !formData.childrenCount || !formData.theme || !formData.date || !formData.time || !formData.email || !formData.phone) {
+    if ( !formData.childrenCount || !formData.theme || !formData.date || !formData.time || !formData.email || !formData.phone) {
       toast.error("Моля попълнете всички задължителни полета!", {
         position: "bottom-center"
       });
@@ -50,7 +50,7 @@ const BookParty = () => {
       to_name: "Website Owner",
       from_name: formData.contactName,
       reply_to: formData.email,
-      ocation: formData.ocation,
+      // ocation: formData.ocation,
       childrenCount: formData.childrenCount,
       theme: formData.theme,
       date: formData.date,
@@ -85,7 +85,7 @@ const BookParty = () => {
         <h2>Запази парти</h2>
 
         {/* Location */}
-        <label>
+        {/* <label>
           Повод:
           <input
             type="text"
@@ -94,7 +94,7 @@ const BookParty = () => {
             onChange={handleChange}
             required
           />
-        </label>
+        </label> */}
 
         {/* Number of children */}
         <label>
