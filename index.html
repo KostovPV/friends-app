@@ -11,26 +11,25 @@
   <meta property="og:description" content="Насладете се на забавления за деца и организирайте незабравим рожден ден в парти център Friends в Бургас." />
   <meta property="og:image" content="/logo.png" />
   <meta property="og:url" content="https://partycenterfriends.com" />
-
   
   <meta property="og:site_name" content="Парти център Friends" />
   <meta property="og:url" content="https://www.facebook.com/profile.php?id=61566720999276" />
 
-  
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@YourTwitterHandle">
   
-
   <meta name="keywords" content="детски парти център в Бургас, детски рождени дни, почасови игри Бургас, парти център Friends, жк. Изгрев" />
 
   <link rel="icon" type="image/svg+xml" href="/1811.svg" />
-
   <title>Парти център Friends - Детски забавления в Бургас жк Изгрев</title>
 
   <!-- Preload critical slider images for faster loading -->
   <link rel="preload" href="/assets/images/333.avif" as="image" fetchpriority="high">
   <link rel="preload" href="/assets/images/1_cropped.webp" as="image" fetchpriority="high">
 
+  <!-- Load CSS Asynchronously -->
+  <link rel="stylesheet" href="/path/to/main.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/path/to/main.css"></noscript>
 
   <script type="application/ld+json">
     {
@@ -52,7 +51,7 @@
 <body>
   <div id="root"></div>
   
-  <!-- Main JS file -->
-  <script type="module" src="/src/main.jsx"></script>
+  <!-- Main JS file with defer attribute -->
+  <script type="module" src="/src/main.jsx" defer></script>
 </body>
 </html>
