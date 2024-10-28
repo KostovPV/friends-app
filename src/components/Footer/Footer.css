@@ -43,6 +43,70 @@ footer {
 .error-page h2 {
     margin-top: 3rem;
 }
+.footer__more {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+    gap: 1rem;
+    text-align: center;
+}
+
+.footer__more-text {
+    font-size: 1rem;
+    color: #fff;
+}
+
+
+
+.footer__vote-button:hover {
+    background-color: #d48f1a;
+}
+
+@media screen and (max-width: 600px) {
+    .footer__vote-button {
+        padding: 0.5rem 1rem;
+        background-size: 20px;
+        padding-left: 2rem;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .footer__vote-button {
+        padding: 0.4rem 0.8rem;
+        background-size: 18px;
+        padding-left: 1.8rem;
+    }
+}
+
+
+@media screen and (max-width: 600px) {
+    .footer__more {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .footer__vote-button {
+        padding: 0.5rem 1rem;
+    }
+
+    .footer__vote-icon {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .footer__vote-button {
+        padding: 0.4rem 0.8rem;
+    }
+    
+    .footer__vote-icon {
+        width: 18px;
+        height: 18px;
+    }
+}
+
 @media screen and (max-width: 600px) {
  
     .footer__categories a {
