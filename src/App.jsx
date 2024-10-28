@@ -1,36 +1,44 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { useAuthContext } from './hooks/useAuthContext'; 
-import Header from './components/Header/Header';
+import { useAuthContext } from './hooks/useAuthContext';
+import Header from './components/Header/Header'; // Home page components
 import Footer from './components/Footer/Footer';
-import { Home } from './pages/Home/Home';
-import Terms from './pages/Terms/Terms';
-import Contacts from './pages/Contacts/Contacts';
-import Login from './pages/Login/Login';
-import Signup from './pages/Signup/Signup';
-import Logout from './components/Logout/Logout';
-import Upload from './pages/Upload/Upload';
-import BookParty from './pages/BookParty/BookParty';
-import Profile from './pages/Profile/Profile';
+import Home from './pages/Home/Home';
+
+// Lazy load all other components
+const Terms = lazy(() => import('./pages/Terms/Terms'));
+const Contacts = lazy(() => import('./pages/Contacts/Contacts'));
+const Login = lazy(() => import('./pages/Login/Login'));
+const Signup = lazy(() => import('./pages/Signup/Signup'));
+const Logout = lazy(() => import('./components/Logout/Logout'));
+const Upload = lazy(() => import('./pages/Upload/Upload'));
+const BookParty = lazy(() => import('./pages/BookParty/BookParty'));
+const Profile = lazy(() => import('./pages/Profile/Profile'));
+const Gallery = lazy(() => import('./pages/Gallery/Gallery'));
+const EditImage = lazy(() => import('./pages/EditImage/EditImage'));
+const Statistics = lazy(() => import('./pages/Statistics/Statistics'));
+const TrackUserActivity = lazy(() => import('./components/TrackUserActivity/TrackUserActivity'));
+const PageNotFound = lazy(() => import('./components/404/404'));
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Gallery from './pages/Gallery/Gallery';
-import EditImage from './pages/EditImage/EditImage';
-import Statistics from './pages/Statistics/Statistics';
-import TrackUserActivity from './components/TrackUserActivity/TrackUserActivity';
-import PageNotFound from './components/404/404';
 
 function App() {
   const { user, authIsReady } = useAuthContext(); // Get user and authIsReady from context
 
   return (
     <BrowserRouter>
-      {authIsReady && <TrackUserActivity />}
+      {authIsReady && (
+        <Suspense fallback={<div>Loading activity tracking...</div>}>
+          <TrackUserActivity />
+        </Suspense>
+      )}
       <div className='app-container'>
         <ToastContainer />
+        
+        {/* Render Header and Footer immediately for Home page */}
         <Header />
-        {authIsReady && ( // Check if auth is ready before rendering routes
+        <Suspense fallback={<div>Loading...</div>}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/gallery" element={<Gallery />} />
@@ -77,9 +85,10 @@ function App() {
             />
             <Route path="/logout" element={<Logout />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path='*' element={<PageNotFound/>} />
+            <Route path="*" element={<PageNotFound />} />
           </Routes>
-        )}
+        </Suspense>
+        
         <Footer />
       </div>
     </BrowserRouter>
