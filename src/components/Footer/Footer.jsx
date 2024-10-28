@@ -13,10 +13,10 @@ export default function Footer() {
         <li><Link to="/contacts">Контакти</Link></li>
       </ul>
       <div className="footer__more">
-        <div className="footer__more-text">Ако ни харесваш, гласувай за нас тук</div>
+        <div className="footer__more-text">Харесваш ни, гласувай за нас тук</div>
         <a href="//bgtop.net/vote/1730040725" target="_blank" rel="noopener noreferrer" className="footer__vote-button">
-  <img src="/src/assets/bg_top_logo10.gif" alt="Vote Icon" className="footer__vote-icon" />
-</a>
+          <img src="/assets/bg_top_logo10.gif" alt="Vote Icon" className="footer__vote-icon" />
+        </a>
 
       </div>
       <div className="footer__copyright">

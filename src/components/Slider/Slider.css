@@ -16,11 +16,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    transition: background-image 0.5s ease;
+    overflow: hidden;
+    
+
+}
+
+.slider-component .slider-image img {
+    width: 100%;   /* Ensures the image takes full width */
+    height: auto;  /* Maintains aspect ratio */
+    object-fit: cover; /* This will help in maintaining the aspect ratio while covering the area */
     border-radius: 0.5rem;
+
 }
 
 .slider-component .arrow {
