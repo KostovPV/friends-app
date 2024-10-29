@@ -2,11 +2,10 @@ import React, { Suspense, lazy } from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuthContext } from './hooks/useAuthContext';
-import Header from './components/Header/Header'; // Home page components
+import Header from './components/Header/Header'; 
 import Footer from './components/Footer/Footer';
 import Home from './pages/Home/Home';
 
-// Lazy load all other components
 const Terms = lazy(() => import('./pages/Terms/Terms'));
 const Contacts = lazy(() => import('./pages/Contacts/Contacts'));
 const Login = lazy(() => import('./pages/Login/Login'));
@@ -23,8 +22,20 @@ const PageNotFound = lazy(() => import('./components/404/404'));
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+// Higher-order component to protect admin routes
+const ProtectedRoute = ({ user, role, redirectPath = "/", children }) => {
+  if (!user || user.role !== role) {
+    return <Navigate to={redirectPath} replace />;
+  }
+  return children;
+};
+
 function App() {
-  const { user, authIsReady } = useAuthContext(); // Get user and authIsReady from context
+  const { user, authIsReady } = useAuthContext();
+
+  if (!authIsReady) {
+    return <div>Loading authentication...</div>;
+  }
 
   return (
     <BrowserRouter>
@@ -33,10 +44,8 @@ function App() {
           <TrackUserActivity />
         </Suspense>
       )}
-      <div className='app-container'>
+      <div className="app-container">
         <ToastContainer />
-        
-        {/* Render Header and Footer immediately for Home page */}
         <Header />
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
@@ -45,50 +54,43 @@ function App() {
             <Route path="/contacts" element={<Contacts />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/book" element={<BookParty />} />
+            
+            {/* Protected Admin Routes */}
             <Route
               path="/edit/:id"
               element={
-                user && user.role === 'admin' ? (
+                <ProtectedRoute user={user} role="admin">
                   <EditImage />
-                ) : (
-                  <Navigate to="/" /> // Redirect if user is not logged in or not admin
-                )
+                </ProtectedRoute>
               }
             />
             <Route
               path="/upload"
               element={
-                user && user.role === 'admin' ? (
+                <ProtectedRoute user={user} role="admin">
                   <Upload />
-                ) : (
-                  <Navigate to="/" /> // Redirect if user is not logged in or not admin
-                )
+                </ProtectedRoute>
               }
             />
             <Route
               path="/statistics"
               element={
-                user && user.role === 'admin' ? (
+                <ProtectedRoute user={user} role="admin">
                   <Statistics />
-                ) : (
-                  <Navigate to="/" /> // Redirect if user is not logged in or not admin
-                )
+                </ProtectedRoute>
               }
             />
-            <Route
-              path="/register"
-              element={!user ? <Signup /> : <Navigate to="/" />} // Redirect if user is logged in
-            />
-            <Route
-              path="/login"
-              element={!user ? <Login /> : <Navigate to="/" />} // Redirect if user is logged in
-            />
+
+            {/* Auth Routes */}
+            <Route path="/register" element={!user ? <Signup /> : <Navigate to="/" />} />
+            <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
             <Route path="/logout" element={<Logout />} />
             <Route path="/profile" element={<Profile />} />
+
+            {/* Fallback for undefined routes */}
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </Suspense>
-        
         <Footer />
       </div>
     </BrowserRouter>

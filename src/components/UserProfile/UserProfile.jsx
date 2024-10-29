@@ -11,7 +11,7 @@ function UserProfile({ user }) {
   return (
     <div className="user-profile" onClick={goToProfile}>
       <img
-        src={user?.photo || user?.photoURL || '/assets/images/user.png'}
+        src={user?.photo || user?.photoURL || 'default-avatar.png'}
         alt="User Avatar"
         className="user-avatar"
        

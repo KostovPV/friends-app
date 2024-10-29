@@ -10,6 +10,7 @@ function Header() {
 
   }, [user, authIsReady]);
 
+
   if (!authIsReady) {
     return <header>Зареждане...</header>;
   }
