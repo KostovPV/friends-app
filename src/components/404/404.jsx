@@ -1,22 +1,19 @@
 import { Link } from "react-router-dom";
-import './404.css'
+import './404.css';
 
 const PageNotFound = () => {
   return (
-    <div className="no-content-container">
-      <div id="notfound">
-        <div className="notfound">
-          <div className="notfound-404">
-            <h1>Ooпс!</h1>
-          </div>
-          <h2>404 - Страницата не е намерена</h2>
+    <section className="page_404">
+      <div className="content-404">
+        <h1>404</h1>
+        <div className="four_zero_four_bg"></div>
+        <div className="contant_box_404">
+          <h3 className="h2">Страницата не е намерена</h3>
           <p>Страницата, която се опитвате да достъпите не съществува или не е достъпна в момента.</p>
-          <Link to="/">
-            <button className="redirect-button">Към началната страница</button>
-          </Link>
+          <Link to="/" className="link_404">Към началната страница</Link>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
