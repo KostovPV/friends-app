@@ -30,7 +30,7 @@ function Header() {
             <ul className="nav-links">
               <li><a href="/">Начало</a></li>
               <li><a href="/contacts">Контакти</a></li>
-              <li><a href="/terms">Условия</a></li>
+              <li><a href="/terms">Общи условия</a></li>
               <li><a href="/book">Резервирай</a></li>
               <li><a href="/gallery">Галерия</a></li>
 
