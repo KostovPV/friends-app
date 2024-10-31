@@ -16,6 +16,14 @@
     font-size: 1.5rem;
     padding-left: 100%; /* Start the animation from off-screen */
 }
+.intro-text h1 {
+    display: inline;
+    font-size: 1.5rem; /* Match the font size of other text */
+    color: #e8dfdf; /* Match color */
+    margin: 0;
+    white-space: nowrap; /* Prevents wrapping */
+    font-weight: normal; /* Adjust weight if needed */
+}
 
 .hero-icon {
     width: 60px; 
