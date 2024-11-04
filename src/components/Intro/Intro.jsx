@@ -9,19 +9,19 @@ import hero6 from '../../assets/5LST-resize.gif';
 export default function Intro() {
     return (
         <div className="intro-container">
+
             <div className="intro-text">
-                Добре дошли при нас.
+                Добре дошли в сайта на детски парти център “Friends”.
                 <img src={hero1} alt="Hero 1" className="hero-icon" />
-                <h1>Парти център Friends предлага почасови игри и организиране на рождени дни.</h1>
+                <h1> Услугите, които предлагаме са почасова игра и организиране на рожден ден.</h1>
                 <img src={hero2} alt="Hero 2" className="hero-icon" />
-                Ще се радваме да прекарате свободното си време при нас.
+                За повече информация се свържете с нас на телефон 0894928950
                 <img src={hero3} alt="Hero 3" className="hero-icon" />
-                <h1>Ние ще се погрижим да се почувствате страхотно</h1>
+                или заповядайте на място.
                 <img src={hero4} alt="Hero 4" className="hero-icon" />
-                За повече въпроси се свържете с нас чрез контактната ни форма
+                Очакваме Ви!
                 <img src={hero5} alt="Hero 5" className="hero-icon" />
-                Или елате на място
-                <img src={hero6} alt="Hero 6" className="hero-icon" />
+               
             </div>
         </div>
     );
