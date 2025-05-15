@@ -9,7 +9,7 @@ export default function Footer() {
 
         <li><Link to="/">Начало</Link></li>
         <li><Link to="/book">Резервирай</Link></li>
-        <li><Link to="/terms">Общи условия</Link></li>
+        <li><Link to="/terms">Условия</Link></li>
         <li><Link to="/contacts">Контакти</Link></li>
       </ul>
       <div className="footer__more">
