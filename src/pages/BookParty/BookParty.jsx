@@ -208,6 +208,9 @@ import "react-toastify/dist/ReactToastify.css";
 import "./BookParty.css";
 
 const BookParty = () => {
+
+  console.log("SMS endpoint:", import.meta.env.VITE_TWILIO_FUNCTION_URL);
+
   const [formData, setFormData] = useState({
     childrenCount: "",
     theme: "",
